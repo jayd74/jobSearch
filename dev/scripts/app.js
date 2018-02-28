@@ -5,7 +5,9 @@ import Qs from 'qs';
 import { 
     BrowserRouter as Router, 
     Route, Link } from 'react-router-dom';
+import SlideOutInfo from './SlideOutInfo';
 import SearchResult from './searchResult'
+
 
 
 class App extends React.Component {
@@ -54,7 +56,7 @@ class App extends React.Component {
           l: this.state.locationToSearch,
           co: "ca",
 
-          start : this.state.currentPage*10,
+          start : this.state.currentPage*10;
           limit : 10
         }
 
@@ -111,17 +113,11 @@ class App extends React.Component {
           {this.state.resultsLoaded ? Object.values(this.state.currentSearchResults).map((job) => {
             return (
               <div key = {job.jobkey}>
-              
-              {/* //   <h3 >{job.jobtitle}</h3>
-              //   <p dangerouslySetInnerHTML = {{__html : job.snippet}}></p> 
-                 */}
-                
-              <SearchResult data={job}/>
-
+                <SlideOutInfo data={job} />
+                <SearchResult data={job}/>
               </div>
             )
-          }): <h6>Retrieving Job Prospects...</h6>}
-          
+          }): <h6>Retrieving Job Prospects...</h6>}       
         </div>
       )
     }
