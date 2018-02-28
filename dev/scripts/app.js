@@ -15,11 +15,13 @@ class App extends React.Component {
         currentPage : 0,
         currentSearchResults : {
 
-        }
+        },
+        resultsLoaded : true,
       }
 
       this.setLocationToSearch = this.setLocationToSearch.bind(this);
       this.searchForJobs = this.searchForJobs.bind(this);
+      this.changePage = this.changePage.bind(this);
     }
 
     componentDidMount(){
@@ -42,28 +44,29 @@ class App extends React.Component {
     }
 
     searchForJobs(){
-      axios.get("https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch",{
+      this.setState({resultsLoaded : false},() => {axios.get("https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch",{
         params : {
           publisher: "2117056629901044",
           v: 2,
           format: "json",
           q: "Front End Web Developer",
           l: this.state.locationToSearch,
-          // co: "ca",
-          start : this.state.currentPage,
+          co: "ca",
+          start : this.state.currentPage*10,
           limit : 10
         }
 
       }).then((res) => {
-        console.log(res.data.results);
+        console.log(res);
         let _currentResults = {};
         for(let i = 0; i < res.data.results.length; i++){
           _currentResults[res.data.results[i].jobkey] = res.data.results[i];
         }
         this.setState({
-          currentSearchResults : _currentResults
+          currentSearchResults : _currentResults,
+          resultsLoaded : true
         })
-      })      
+      })});   
     }
 
     setLocationToSearch(e){
@@ -73,19 +76,43 @@ class App extends React.Component {
       })
     }
 
+    changePage(e){
+      let _currentPage = this.state.currentPage;
+      switch(e.target.id){  
+        case "page-last" :
+          if(this.state.currentPage !== 0){
+            this.setState(
+              {currentPage : _currentPage-1},() => {
+            });
+          }
+        break;
+        case "page-next" :
+          this.setState(
+            {currentPage : _currentPage+1},() => {
+          });
+        break;
+      }
+      this.searchForJobs();
+    }
+
     render() {
       return (
         <div>
           <input onChange = {this.setLocationToSearch} id = "location-input" type="text" name="" id=""/>
           <button onClick = {this.searchForJobs}>Search for jobs!</button>
-          {Object.values(this.state.currentSearchResults).map((job) => {
+          <div className="change-page-controls">
+            <button onClick = {this.changePage} id = "page-last">Last</button>
+            <button onClick = {this.changePage} id = "page-next">Next</button>
+          </div>
+          {this.state.resultsLoaded ? Object.values(this.state.currentSearchResults).map((job) => {
             return (
               <div key = {job.jobkey}>
                 <h3 >{job.jobtitle}</h3>
                 <p dangerouslySetInnerHTML = {{__html : job.snippet}}></p> 
               </div>
             )
-          })}
+          }): <h6>Retrieving Job Prospects...</h6>}
+          
         </div>
       )
     }
