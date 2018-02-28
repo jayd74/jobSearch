@@ -5,6 +5,7 @@ import Qs from 'qs';
 import { 
     BrowserRouter as Router, 
     Route, Link } from 'react-router-dom';
+import SearchResult from './searchResult'
 
 
 class App extends React.Component {
@@ -49,7 +50,7 @@ class App extends React.Component {
           format: "json",
           q: "Front End Web Developer",
           l: this.state.locationToSearch,
-          // co: "ca",
+          co: "ca",
           start : this.state.currentPage,
           limit : 10
         }
@@ -76,13 +77,20 @@ class App extends React.Component {
     render() {
       return (
         <div>
+          
+
           <input onChange = {this.setLocationToSearch} id = "location-input" type="text" name="" id=""/>
           <button onClick = {this.searchForJobs}>Search for jobs!</button>
           {Object.values(this.state.currentSearchResults).map((job) => {
             return (
               <div key = {job.jobkey}>
-                <h3 >{job.jobtitle}</h3>
-                <p dangerouslySetInnerHTML = {{__html : job.snippet}}></p> 
+              
+              {/* //   <h3 >{job.jobtitle}</h3>
+              //   <p dangerouslySetInnerHTML = {{__html : job.snippet}}></p> 
+                 */}
+                
+              <SearchResult data={job}/>
+
               </div>
             )
           })}
