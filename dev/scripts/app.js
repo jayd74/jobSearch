@@ -70,7 +70,6 @@ class App extends React.Component {
     }
 
     setLocationToSearch(e){
-      console.log(e.target.value);
       this.setState({
         locationToSearch : e.target.value
       })
@@ -96,7 +95,6 @@ class App extends React.Component {
     }
 
     displayJobDetails(e){
-      console.log(e.target.id);
       this.setState({
         currentlySelectedJob : this.state.currentSearchResults[e.target.id]
       })
@@ -112,9 +110,8 @@ class App extends React.Component {
       return (
         <div>
           
-
-          <input onChange = {this.setLocationToSearch} id = "location-input" type="text" name="" id=""/>
-          <button onClick = {this.searchForJobs}>Search for jobs!</button>
+          <input onKeyDown= {(e)=>{if(e.keyCode === 13) this.searchForJobs()}} onChange = {this.setLocationToSearch} id = "location-input" type="text" name="" id=""/>
+          <button  onClick = {this.searchForJobs}>Search for jobs!</button>
           <div className="change-page-controls">
             <button onClick = {this.changePage} id = "page-last">Last</button>
             <button onClick = {this.changePage} id = "page-next">Next</button>
