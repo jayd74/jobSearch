@@ -6,6 +6,11 @@ class App extends React.Component {
       return (
         <div>
           <h2>jason</h2>
+
+          <p>Hello from natalie</p>
+
+          <h1>Jonathan</h1>
+
         </div>
       )
     }
