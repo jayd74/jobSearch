@@ -1,0 +1,19 @@
+.slide-out-container {
+    border: 1px solid black;
+    padding: 20px;
+    h2, h3, h4, p {
+        padding: 20px;
+    }
+}
+
+.apply-button, .save-button {
+    border: none;
+    padding: 10px;
+    border: 1px solid blue;
+    color: black;
+    background: white;
+    min-width: 100px;
+    text-decoration: none;
+    margin: 20px;
+}
+
