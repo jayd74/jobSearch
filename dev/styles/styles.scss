@@ -1,2 +1,13 @@
 @import 'partials/normalize';
+@import 'partials/searchResult';
 @import 'partials/slideOutInfo';
+
+.wrapper {
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.search-for-jobs {
+    margin: 0 auto;
+    text-align: center;
+}
