@@ -111,14 +111,18 @@ class App extends React.Component {
     render() {
       return (
         <div>
+          <div className="wrapper">
           
-
-          <input onChange = {this.setLocationToSearch} id = "location-input" type="text" name="" id=""/>
-          <button onClick = {this.searchForJobs}>Search for jobs!</button>
-          <div className="change-page-controls">
-            <button onClick = {this.changePage} id = "page-last">Last</button>
-            <button onClick = {this.changePage} id = "page-next">Next</button>
+          <div className="search-for-jobs">
+            <input onChange = {this.setLocationToSearch} id = "location-input" type="text" name="" id=""/>
+            <button onClick = {this.searchForJobs}>Search for jobs!</button>
+            <div className="change-page-controls">
+              <button onClick = {this.changePage} id = "page-last">Last</button>
+              <button onClick = {this.changePage} id = "page-next">Next</button>
+            </div>
           </div>
+
+
           {this.state.resultsLoaded ? Object.values(this.state.currentSearchResults).map((job) => {
             return (
               <div key = {job.jobkey}>
@@ -128,6 +132,8 @@ class App extends React.Component {
             )
           }): <h6>Retrieving Job Prospects...</h6>}    
           {this.state.currentlySelectedJob ? <SlideOutInfo onClose = {this.hideJobDetails} data={this.state.currentlySelectedJob} /> : null}  
+         
+          </div>
         </div>
       )
     }
