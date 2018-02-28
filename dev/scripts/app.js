@@ -8,7 +8,15 @@ import {
 import SlideOutInfo from './SlideOutInfo';
 import SearchResult from './searchResult'
 
-
+var config = {
+  apiKey: "AIzaSyApx_i3WVOsw9ZQLATIbmLAG_-J-OYYKA4",
+  authDomain: "hyjobsearchapp.firebaseapp.com",
+  databaseURL: "https://hyjobsearchapp.firebaseio.com",
+  projectId: "hyjobsearchapp",
+  storageBucket: "",
+  messagingSenderId: "984509463838"
+};
+firebase.initializeApp(config);
 
 class App extends React.Component {
     constructor(props){
@@ -20,34 +28,22 @@ class App extends React.Component {
 
         },
         resultsLoaded : true,
+        currentlySelectedJob : null
       }
 
       this.setLocationToSearch = this.setLocationToSearch.bind(this);
       this.searchForJobs = this.searchForJobs.bind(this);
       this.changePage = this.changePage.bind(this);
+      this.displayJobDetails = this.displayJobDetails.bind(this);
+      this.hideJobDetails = this.hideJobDetails.bind(this);
     }
 
     componentDidMount(){
-      // console.log(this.state.locationToSearch);
-      // axios.get("https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apigetjobs",{
-      //   params : {
-      //     publisher: "2117056629901044",
-      //     v: 2,
-      //     format: "json",
-      //     jobkeys: "e6ad19e9c5eaf165",
-      //     l: this.state.locationToSearch,
-      //     co: "ca",
-      //     start : this.state.currentPage,
-      //     limit : 10
-      //   }
 
-      // }).then((res) => {
-      //   console.log(res);
-      // })
     }
 
     searchForJobs(){
-      this.setState({resultsLoaded : false},() => {axios.get("https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch",{
+      this.setState({resultsLoaded : false, currentlySelectedJob : null},() => {axios.get("https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch",{
         params : {
           publisher: "2117056629901044",
           v: 2,
@@ -56,7 +52,7 @@ class App extends React.Component {
           l: this.state.locationToSearch,
           co: "ca",
 
-          start : this.state.currentPage*10;
+          start : this.state.currentPage*10,
           limit : 10
         }
 
@@ -99,6 +95,19 @@ class App extends React.Component {
       this.searchForJobs();
     }
 
+    displayJobDetails(e){
+      console.log(e.target.id);
+      this.setState({
+        currentlySelectedJob : this.state.currentSearchResults[e.target.id]
+      })
+    }
+
+    hideJobDetails(){
+      this.setState({
+        currentlySelectedJob : null
+      })
+    }
+
     render() {
       return (
         <div>
@@ -113,11 +122,12 @@ class App extends React.Component {
           {this.state.resultsLoaded ? Object.values(this.state.currentSearchResults).map((job) => {
             return (
               <div key = {job.jobkey}>
-                <SlideOutInfo data={job} />
-                <SearchResult data={job}/>
+                
+                <SearchResult onClick = {this.displayJobDetails} data={job}/>
               </div>
             )
-          }): <h6>Retrieving Job Prospects...</h6>}       
+          }): <h6>Retrieving Job Prospects...</h6>}    
+          {this.state.currentlySelectedJob ? <SlideOutInfo onClose = {this.hideJobDetails} data={this.state.currentlySelectedJob} /> : null}  
         </div>
       )
     }
