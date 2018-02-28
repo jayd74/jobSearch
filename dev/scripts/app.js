@@ -177,8 +177,8 @@ class App extends React.Component {
           }): <h6>Retrieving Job Prospects...</h6>}    
           {this.state.currentlySelectedJob ? <SlideOutInfo onClose = {this.hideJobDetails} data={this.state.currentlySelectedJob} /> : null}  
          
-          </div>
-        </div>
+          </div> {/* end wrapper */}
+        </div> // end main div
       )
     }
 }
