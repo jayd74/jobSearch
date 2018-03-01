@@ -6,7 +6,8 @@ import {
     BrowserRouter as Router, 
     Route, Link } from 'react-router-dom';
 import SlideOutInfo from './SlideOutInfo';
-import SearchResult from './searchResult'
+import SearchResult from './searchResult';
+import Account from './Account';
 
 var config = {
   apiKey: "AIzaSyApx_i3WVOsw9ZQLATIbmLAG_-J-OYYKA4",
@@ -224,8 +225,10 @@ class App extends React.Component{
       <div>
         <header>
           <Link to = "/">Home</Link>
+          <Link to="/account">Account</Link>
         </header>
         <Route path = "/" exact component = {Home} />
+        <Route path="/account" exact component = {Account} />
       </div>
 
     </Router>)
