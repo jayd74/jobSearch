@@ -156,8 +156,10 @@ class App extends React.Component {
             <input onKeyDown= {(e)=>{if(e.keyCode === 13) this.searchForJobs()}} onChange = {this.setLocationToSearch} id = "location-input" type="text" name="" id=""/>
             <button  onClick = {this.searchForJobs}>Search for jobs!</button>
 
-            <button onClick = {this.signIn}>Sign in</button>
-            <button onClick={this.signOut}>Sign out</button>
+            <button onClick = {this.state.loggedIn ? this.signOut : this.signIn}>
+              {this.state.loggedIn ? "Sign out" : "Sign in"}
+            </button>
+            {/* <button onClick={this.signOut}>Sign out</button> */}
 
             <div className="change-page-controls">
               <button onClick = {this.changePage} id = "page-last">Last</button>
