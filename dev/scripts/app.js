@@ -24,13 +24,12 @@ class App extends React.Component {
       this.state = {
         locationToSearch : "toronto",
         currentPage : 0,
-        currentSearchResults : {
-
-        },
+        currentSearchResults : {},
         resultsLoaded : true,
         currentlySelectedJob : null,
         loggedIn: false,
-        user: null
+        user: null,
+        jobsAppliedFor : {}
       }
 
       this.setLocationToSearch = this.setLocationToSearch.bind(this);
@@ -40,23 +39,50 @@ class App extends React.Component {
       this.hideJobDetails = this.hideJobDetails.bind(this);
       this.signIn = this.signIn.bind(this);
       this.signOut = this.signOut.bind(this);
+      this.applyForJob = this.applyForJob.bind(this);
     }
 
     componentDidMount(){
+
+
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           this.setState({
             loggedIn: true,
             user: user.uid
           })
+
+          let dbRef = firebase.database().ref(`users/${this.state.user}`);
+
+          dbRef.on('value', (data) => {
+            console.log(data.val());
+            this.setState({
+              jobsAppliedFor : data.val().jobsAppliedFor
+            })
+          });
         }
         else {
           this.setState({
             loggedIn: false,
-            user: null
+            user: null,
+            jobsAppliedFor : {}
           })
         }
       })
+    }
+
+    applyForJob(e){
+      
+      let appliedFor = this.state.jobsAppliedFor;
+      appliedFor[e.target.id] = this.state.currentSearchResults[e.target.id];
+      this.setState({
+        jobsAppliedFor : appliedFor
+      });
+
+      if(this.state.loggedIn && this.state.user !== null){
+        let dbRef = firebase.database().ref(`users/${this.state.user}/jobsAppliedFor`);
+        dbRef.set(appliedFor);
+      }
     }
 
     searchForJobs(){
@@ -170,14 +196,16 @@ class App extends React.Component {
 
 
           {this.state.resultsLoaded ? Object.values(this.state.currentSearchResults).map((job) => {
-            return (
-              <div key = {job.jobkey}>
-                
-                <SearchResult onClick = {this.displayJobDetails} data={job}/>
-              </div>
-            )
+            // if(this.state.jobsAppliedFor[job.jobkey]){
+              return (
+                <div key = {job.jobkey}>
+                  
+                  <SearchResult appliedFor = {Boolean(this.state.jobsAppliedFor[job.jobkey])} onClick = {this.displayJobDetails} data={job}/>
+                </div>
+              )
+            // }
           }): <h6>Retrieving Job Prospects...</h6>}    
-          {this.state.currentlySelectedJob ? <SlideOutInfo onClose = {this.hideJobDetails} data={this.state.currentlySelectedJob} /> : null}  
+          {this.state.currentlySelectedJob ? <SlideOutInfo onApply = {this.applyForJob} onClose = {this.hideJobDetails} data={this.state.currentlySelectedJob} /> : null}  
          
           </div> {/* end wrapper */}
         </div> // end main div

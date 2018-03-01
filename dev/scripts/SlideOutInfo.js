@@ -8,9 +8,11 @@ const SlideOutInfo = (props) => {
             <h3>{props.data.company}</h3>
             <h3>{props.data.formattedLocation}</h3>
             <p dangerouslySetInnerHTML={{ __html: props.data.snippet }}></p>
+            <a className = "job-details" href={props.data.url}>See Job Details</a>
             <h4>{props.data.formattedRelativeTime}</h4>
 
-            <a className="apply-button" href={props.data.url}>Apply</a>
+            
+            <button id = {props.data.jobkey} onClick = {props.onApply} className="apply-button">Apply</button>
             <button className="save-button">Save</button>
         </div>
     )
