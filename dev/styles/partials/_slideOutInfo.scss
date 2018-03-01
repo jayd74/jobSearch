@@ -1,14 +1,16 @@
 .slide-out-container {
     background: white;
     border: 1px solid black;
-    padding: 20px;
+    padding: 30px;
     position: fixed;
     top: 50%;
     left: 50%;
+    height: 80%;
+    width: 70%;
     transform: translate(-50%, -50%);
     box-shadow : 0px 0px 25px grey;
     h2, h3, h4, p {
-        padding: 20px;
+        margin: 5px 20px;
     }
     .close-btn{
         float: right;
