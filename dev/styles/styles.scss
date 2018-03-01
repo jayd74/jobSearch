@@ -7,8 +7,45 @@ $secondary-color: #CA6295;
 $tetiary-color: #ECE6D0;
 $quaternary-color: #846BA7;
 
+    * {
+        border: solid 1px black;
+        box-sizing: border-box;
+    }
+
 body {
     font-family: 'Mukta Malar', sans-serif; 
+}
+header {
+    width: 100%;
+    background: #4b5466;
+    height: 100px;   
+    color: $tetiary-color; 
+    img{
+        width: 75px;
+        margin: 10px;
+        // text-align: center;
+        // margin: 0 auto;
+    }
+    a {
+        text-decoration: none;
+        color: $tetiary-color;
+    }
+    nav li{
+        float: left;
+        margin: 35px 20px;
+        list-style: none;
+    }
+    nav li:first-child {
+        margin-left: 0;
+    }
+    .sign-in {
+        margin: 35px 0;
+        float: right;
+        background: none;
+        color: $tetiary-color;
+        border: none;
+    }
+    
 }
 
 .wrapper {
@@ -16,7 +53,42 @@ body {
     margin: 0 auto;
 }
 
+nav, 
+.logo, 
+.sign-in-out {
+    float: left;
+    width: calc(100% / 3);
+    text-align: center;
+}
+
+
+
+
 .search-for-jobs {
+    clear: both;
+    // background: $primary-color;
     text-align: center;
     margin: 25px 0;
+    h1 {
+        font-size: 50px;
+        width: 70%;
+        margin: 0 auto;
+        line-height: 70px;
+    }
+    input {
+        padding: 10px;
+        font-size: 25px;
+        width: 30%;
+        text-align: center;
+        border: solid 3px $primary-color;
+        border-radius: 5px;
+        margin: 10px;
+    }
+    button {
+        padding: 20px;
+        background: $quaternary-color;
+        color: white;
+        border-radius: 5px;
+        display: inline-block;
+    }
 }
