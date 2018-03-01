@@ -4,6 +4,8 @@ import {
     Route,
     Link
 } from 'react-router-dom';
+import JobsView from './jobsview';
+
 
 class ApplicationDetails extends React.Component {
     constructor(props) {
@@ -44,14 +46,10 @@ class ApplicationDetails extends React.Component {
                     </div>
                     <button className="account-form-submit">Save changes</button> 
                 </form>
-            </div>
-        )
-    }
-}
 
 class Account extends React.Component {
-    constructor(props) {
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             application: {
                 name: '',
@@ -61,11 +59,14 @@ class Account extends React.Component {
                 skills: '',
                 interests: '',
                 coverLetter: ''
-            }
+            },
+            accountDetailsToDisplay : "applications"
         }
-        this.setApplicationDetails = this.setApplicationDetails.bind(this);
-    }
 
+        this.displayAccountDetails = this.displayAccountDetails.bind(this);
+         this.setApplicationDetails = this.setApplicationDetails.bind(this);
+    }
+      
     setApplicationDetails(e) {
         let applicationState = this.state.application;
         applicationState[[e.target.id]] = e.target.value;
@@ -79,12 +80,35 @@ class Account extends React.Component {
         event.preventDefault();
         console.log("save changes");
     }
-
+      
     render() {
         return (
-            <ApplicationDetails data={this.state} setApplicationDetails={this.setApplicationDetails} saveApplicationChanges={this.saveApplicationChanges} />
+            <div>
+                <div className = "account-page-options">
+                    <button 
+                        className = {`account-page-button ${this.state.accountDetailsToDisplay === "applications" ? 'account-button-toggled' : null}`}
+                        onClick = {() => {this.displayAccountDetails("applications")}}
+                    >
+                        My Applications
+                    </button>
+                    <button 
+                        className = {`account-page-button ${this.state.accountDetailsToDisplay === "jobs" ? 'account-button-toggled' : null}`}
+                        onClick = {() => {this.displayAccountDetails("jobs")}}
+                    >
+                        My Jobs
+                    </button>
+                </div>
+                <ApplicationDetails data={this.state} setApplicationDetails={this.setApplicationDetails} saveApplicationChanges={this.saveApplicationChanges} />
+
+            </div>
         )
-    }   
+    }
+
+    displayAccountDetails(detailsToDisplay){
+        this.setState({
+            accountDetailsToDisplay : detailsToDisplay
+        })
+    }
 }
 
 export default Account;
