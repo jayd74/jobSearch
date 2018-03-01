@@ -175,17 +175,27 @@ class Home extends React.Component {
     render() {
       return (
           <div>
+            {/* <header>
+              <div className="wrapper"> */}
+                {/* <button onClick = {this.state.loggedIn ? this.signOut : this.signIn}>
+                {this.state.loggedIn ? "Sign out" : "Sign in"}
+              </button> */}
+              {/* </div>
+
+            </header> */}
+
             <div className="wrapper">
             
 
             <div className="search-for-jobs">
+            <h1>One Search Away from Getting Your Front End Job!</h1>
 
+            <div className="search-bar">
               <input onKeyDown= {(e)=>{if(e.keyCode === 13) this.searchForJobs()}} onChange = {this.setLocationToSearch} id = "location-input" type="text" name="" id=""/>
               <button  onClick = {this.searchForJobs}>Search for jobs!</button>
+            </div>  
 
-              <button onClick = {this.state.loggedIn ? this.signOut : this.signIn}>
-                {this.state.loggedIn ? "Sign out" : "Sign in"}
-              </button>
+            
               {/* <button onClick={this.signOut}>Sign out</button> */}
 
               <div className="change-page-controls">
@@ -224,8 +234,24 @@ class App extends React.Component{
     <Router>
       <div>
         <header>
-          <Link to = {`/`}>Home</Link>
-          <Link to={`/account/`}>Account</Link>
+
+          <div className="wrapper">
+            <nav>
+              <ul>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/account">Account</Link></li>
+              </ul>
+            </nav>
+            
+            <div className="logo">
+              <img src="/public/images/noun_1036986_cc.svg" />
+            </div>
+            
+            <div className="sign-in-out">
+              <button className="sign-in">Sign In</button>
+            </div>
+
+          </div>
         </header>
         <Route path = "/" exact component = {Home} />
         <Route path={`/account/`} exact component = {Account} />
