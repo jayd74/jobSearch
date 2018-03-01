@@ -190,10 +190,8 @@ class Home extends React.Component {
             <div className="search-for-jobs">
             <h1>One Search Away from Getting Your Front End Job!</h1>
 
-            <div className="search-bar">
               <input onKeyDown= {(e)=>{if(e.keyCode === 13) this.searchForJobs()}} onChange = {this.setLocationToSearch} id = "location-input" type="text" name="" id=""/>
-              <button  onClick = {this.searchForJobs}>Search for jobs!</button>
-            </div>  
+              <button  onClick = {this.searchForJobs}>Search!</button>
 
             
               {/* <button onClick={this.signOut}>Sign out</button> */}
