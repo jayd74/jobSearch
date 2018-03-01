@@ -1,5 +1,19 @@
 .search-result {
-    border: 1px solid black;
+    //border: 1px solid black;
     padding: 20px;
-    margin: 10px;
+    margin: 25px;
+    cursor: pointer;
+    background-color : rgb(233, 239, 241);
+    h3{
+        pointer-events : none;
+    }
+    h4{
+        pointer-events : none;
+    }
+}
+
+.search-result:hover{
+    border : none;
+    box-shadow : 0px 10px 20px grey;
+    background-color : lightblue;
 }
