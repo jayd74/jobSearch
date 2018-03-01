@@ -1,0 +1,21 @@
+.account-form-input{
+    margin: 20px;
+    padding: 10px;
+    label {
+    display: inline-block;
+    width: 100px;
+    }
+    textarea {
+        width: 500px;
+        height: 100px;
+        transition: height 0.4s linear; 
+    }
+    textarea:focus {
+        height: 200px;
+    }
+    
+} 
+
+.account-form-submit {
+    margin-left: 120px;
+}
