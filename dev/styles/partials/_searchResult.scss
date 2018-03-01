@@ -1,19 +1,42 @@
+$primary-color: #7685A1;
+$secondary-color: #CA6295;
+$tetiary-color: #ECE6D0;
+$quaternary-color: #846BA7;
+
 .search-result {
     //border: 1px solid black;
-    padding: 20px;
-    margin: 25px;
+    width: 80%;
     cursor: pointer;
-    background-color : rgb(233, 239, 241);
+    padding: 30px;
+    margin: 25px auto;
+    background-color : white;
+    box-shadow: 0px 1px 3px grey;
     h3{
+        font-size: 25px;
         pointer-events : none;
+        color: $primary-color;
     }
     h4{
+        font-size: 20px;
         pointer-events : none;
+        color: $secondary-color;
+        float: left;
+        width: 90%;
+    }
+    button {
+        color: $primary-color;
+        background: none;
+        border: none;
+        transition: 0.3s;
+    }
+    button:hover {
+        transform: translateX(5px);        
+        transition: 0.3s;
     }
 }
 
 .search-result:hover{
     border : none;
-    box-shadow : 0px 10px 20px grey;
-    background-color : lightblue;
+    box-shadow : 0px 2px 6px grey;
+    background: rgba($quaternary-color, 0.2);
 }
