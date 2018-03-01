@@ -18,7 +18,7 @@ var config = {
 };
 firebase.initializeApp(config);
 
-class App extends React.Component {
+class Home extends React.Component {
     constructor(props){
       super(props);
       this.state = {
@@ -173,44 +173,63 @@ class App extends React.Component {
 
     render() {
       return (
-        <div>
-          <div className="wrapper">
-          
+          <div>
+            <div className="wrapper">
+            
 
-          <div className="search-for-jobs">
+            <div className="search-for-jobs">
 
-            <input onKeyDown= {(e)=>{if(e.keyCode === 13) this.searchForJobs()}} onChange = {this.setLocationToSearch} id = "location-input" type="text" name="" id=""/>
-            <button  onClick = {this.searchForJobs}>Search for jobs!</button>
+              <input onKeyDown= {(e)=>{if(e.keyCode === 13) this.searchForJobs()}} onChange = {this.setLocationToSearch} id = "location-input" type="text" name="" id=""/>
+              <button  onClick = {this.searchForJobs}>Search for jobs!</button>
 
-            <button onClick = {this.state.loggedIn ? this.signOut : this.signIn}>
-              {this.state.loggedIn ? "Sign out" : "Sign in"}
-            </button>
-            {/* <button onClick={this.signOut}>Sign out</button> */}
+              <button onClick = {this.state.loggedIn ? this.signOut : this.signIn}>
+                {this.state.loggedIn ? "Sign out" : "Sign in"}
+              </button>
+              {/* <button onClick={this.signOut}>Sign out</button> */}
 
-            <div className="change-page-controls">
-              <button onClick = {this.changePage} id = "page-last">Last</button>
-              <button onClick = {this.changePage} id = "page-next">Next</button>
+              <div className="change-page-controls">
+                <button onClick = {this.changePage} id = "page-last">Last</button>
+                <button onClick = {this.changePage} id = "page-next">Next</button>
+              </div>
+
             </div>
 
-          </div>
 
-
-          {this.state.resultsLoaded ? Object.values(this.state.currentSearchResults).map((job) => {
-            // if(this.state.jobsAppliedFor[job.jobkey]){
-              return (
-                <div key = {job.jobkey}>
-                  
-                  <SearchResult appliedFor = {Boolean(this.state.jobsAppliedFor[job.jobkey])} onClick = {this.displayJobDetails} data={job}/>
-                </div>
-              )
-            // }
-          }): <h6>Retrieving Job Prospects...</h6>}    
-          {this.state.currentlySelectedJob ? <SlideOutInfo onApply = {this.applyForJob} onClose = {this.hideJobDetails} data={this.state.currentlySelectedJob} /> : null}  
-         
-          </div> {/* end wrapper */}
-        </div> // end main div
+            {this.state.resultsLoaded ? Object.values(this.state.currentSearchResults).map((job) => {
+              // if(this.state.jobsAppliedFor[job.jobkey]){
+                return (
+                  <div key = {job.jobkey}>
+                    
+                    <SearchResult appliedFor = {Boolean(this.state.jobsAppliedFor[job.jobkey])} onClick = {this.displayJobDetails} data={job}/>
+                  </div>
+                )
+              // }
+            }): <h6>Retrieving Job Prospects...</h6>}    
+            {this.state.currentlySelectedJob ? <SlideOutInfo onApply = {this.applyForJob} onClose = {this.hideJobDetails} data={this.state.currentlySelectedJob} /> : null}  
+          
+            </div> {/* end wrapper */}
+          </div> // end main div
       )
     }
+}
+
+class App extends React.Component{
+  constructor(props){
+    super(props);
+  }
+
+  render(){
+    return(
+    <Router>
+      <div>
+        <header>
+          <Link to = "/">Home</Link>
+        </header>
+        <Route path = "/" exact component = {Home} />
+      </div>
+
+    </Router>)
+  }
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
