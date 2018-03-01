@@ -46,6 +46,9 @@ class ApplicationDetails extends React.Component {
                     </div>
                     <button className="account-form-submit">Save changes</button> 
                 </form>
+            </div>)
+            }
+}
 
 class Account extends React.Component {
     constructor(props){

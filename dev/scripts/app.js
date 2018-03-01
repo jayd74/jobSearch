@@ -244,7 +244,7 @@ class App extends React.Component{
             </nav>
             
             <div className="logo">
-              <img src="/public/images/noun_1036986_cc.svg" />
+              <img src="/images/noun_1036986_cc.svg" />
             </div>
             
             <div className="sign-in-out">
