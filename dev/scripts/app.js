@@ -8,6 +8,7 @@ import {
 import SlideOutInfo from './SlideOutInfo';
 import SearchResult from './searchResult';
 import Account from './Account';
+import JobsView from './jobsview';
 
 var config = {
   apiKey: "AIzaSyApx_i3WVOsw9ZQLATIbmLAG_-J-OYYKA4",
@@ -44,8 +45,7 @@ class Home extends React.Component {
     }
 
     componentDidMount(){
-
-
+      console.log("mounting");
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           this.setState({
@@ -224,11 +224,11 @@ class App extends React.Component{
     <Router>
       <div>
         <header>
-          <Link to = "/">Home</Link>
-          <Link to="/account">Account</Link>
+          <Link to = {`/`}>Home</Link>
+          <Link to={`/account/`}>Account</Link>
         </header>
         <Route path = "/" exact component = {Home} />
-        <Route path="/account" exact component = {Account} />
+        <Route path={`/account/`} exact component = {Account} />
       </div>
 
     </Router>)
