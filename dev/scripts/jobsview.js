@@ -18,6 +18,7 @@ class JobsView extends React.Component{
         this.renderJobsAppliedFor = this.renderJobsAppliedFor.bind(this);
         this.showJobDetails = this.showJobDetails.bind(this);
         this.renderJobDetails = this.renderJobDetails.bind(this);
+        this.hideJobDetails = this.hideJobDetails.bind(this);
     }
     showApplied () {
         this.setState({
@@ -38,15 +39,22 @@ class JobsView extends React.Component{
         
     }
 
+    hideJobDetails() {
+        this.setState({
+            currentlySelectedJob: null
+        })
+    }
+
+
     renderJobDetails() {
         
         switch(this.state.jobApplicationView){
             case "appliedJobs" :
-                return <SlideOutInfo data={this.state.currentlySelectedJob} hideApplyButton = {true} hideSaveButton = {true} />
+                return <SlideOutInfo data={this.state.currentlySelectedJob} hideApplyButton = {true} hideSaveButton = {true} onClose={this.hideJobDetails} />
             break;
 
             case "savedJobs" :
-                return <SlideOutInfo data={this.state.currentlySelectedJob} hideSaveButton = {true} />
+                return <SlideOutInfo data={this.state.currentlySelectedJob} hideSaveButton = {true} onClose={this.hideJobDetails} />
             break;
 
         }
