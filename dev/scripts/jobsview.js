@@ -39,9 +39,17 @@ class JobsView extends React.Component{
     }
 
     renderJobDetails() {
-        return (
-            <SlideOutInfo data={this.state.currentlySelectedJob} view={this.state.jobApplicationView} />
-        )
+        
+        switch(this.state.jobApplicationView){
+            case "appliedJobs" :
+                return <SlideOutInfo data={this.state.currentlySelectedJob} hideApplyButton = {true} hideSaveButton = {true} />
+            break;
+
+            case "savedJobs" :
+                return <SlideOutInfo data={this.state.currentlySelectedJob} hideSaveButton = {true} />
+            break;
+
+        }
     }
 
     renderJobsAppliedFor(){
