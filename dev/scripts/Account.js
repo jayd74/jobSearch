@@ -83,8 +83,23 @@ class Account extends React.Component {
         event.preventDefault();
         console.log("save changes");
     }
+
+    componentDidMount(){
+        console.log("Account: " + this.props.loggedIn + " " + this.props.user);
+    }
       
     render() {
+        return (
+            <div>
+                {this.props.loggedIn 
+                    ? this.renderAccount() 
+                    : <h4>Sign in to view your account details</h4>
+                }
+            </div>
+        )
+    }
+
+    renderAccount(){
         return (
             <div>
                 <div className = "account-page-options">
@@ -101,10 +116,11 @@ class Account extends React.Component {
                         My Jobs
                     </button>
                 </div>
-                <ApplicationDetails data={this.state} setApplicationDetails={this.setApplicationDetails} saveApplicationChanges={this.saveApplicationChanges} />
-
+                {this.state.accountDetailsToDisplay === "applications" 
+                    ? <ApplicationDetails data={this.state} setApplicationDetails={this.setApplicationDetails} saveApplicationChanges={this.saveApplicationChanges} /> 
+                    : <JobsView jobsAppliedFor = {this.props.jobsAppliedFor} /> }                
             </div>
-        )
+        )   
     }
 
     displayAccountDetails(detailsToDisplay){

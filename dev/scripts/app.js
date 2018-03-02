@@ -29,9 +29,6 @@ class Home extends React.Component {
         currentSearchResults : {},
         resultsLoaded : true,
         currentlySelectedJob : null,
-        loggedIn: false,
-        user: null,
-        jobsAppliedFor : {}
       }
 
       this.setLocationToSearch = this.setLocationToSearch.bind(this);
@@ -39,51 +36,13 @@ class Home extends React.Component {
       this.changePage = this.changePage.bind(this);
       this.displayJobDetails = this.displayJobDetails.bind(this);
       this.hideJobDetails = this.hideJobDetails.bind(this);
-      this.signIn = this.signIn.bind(this);
-      this.signOut = this.signOut.bind(this);
       this.applyForJob = this.applyForJob.bind(this);
     }
 
-    componentDidMount(){
-      console.log("mounting");
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          this.setState({
-            loggedIn: true,
-            user: user.uid
-          })
-
-          let dbRef = firebase.database().ref(`users/${this.state.user}`);
-
-          dbRef.on('value', (data) => {
-            console.log(data.val());
-            this.setState({
-              jobsAppliedFor : data.val().jobsAppliedFor
-            })
-          });
-        }
-        else {
-          this.setState({
-            loggedIn: false,
-            user: null,
-            jobsAppliedFor : {}
-          })
-        }
-      })
-    }
-
-    applyForJob(e){
-      
-      let appliedFor = this.state.jobsAppliedFor;
-      appliedFor[e.target.id] = this.state.currentSearchResults[e.target.id];
-      this.setState({
-        jobsAppliedFor : appliedFor
-      });
-
-      if(this.state.loggedIn && this.state.user !== null){
-        let dbRef = firebase.database().ref(`users/${this.state.user}/jobsAppliedFor`);
-        dbRef.set(appliedFor);
-      }
+    applyForJob(e){  
+      let jobkey = e.target.id;
+      let jobObject = this.state.currentSearchResults[e.target.id];
+      this.props.applyForJob(jobkey,jobObject);
     }
 
     searchForJobs(){
@@ -150,40 +109,9 @@ class Home extends React.Component {
       })
     }
 
-    signIn() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      provider.setCustomParameters({
-        prompt: 'select_account'
-      });
-      firebase.auth().signInWithPopup(provider)
-        .catch(function (error) {
-          console.log(error)
-        }).then((result)=>{
-          console.log(result)
-        })
-      
-    }
-
-    signOut() {
-      firebase.auth().signOut().then(function (success) {
-        console.log('Signed out!')
-      }, function (error) {
-        console.log(error);
-      });
-    }
-
     render() {
       return (
           <div>
-            {/* <header>
-              <div className="wrapper"> */}
-                {/* <button onClick = {this.state.loggedIn ? this.signOut : this.signIn}>
-                {this.state.loggedIn ? "Sign out" : "Sign in"}
-              </button> */}
-              {/* </div>
-
-            </header> */}
-
             <div className="wrapper">
             
 
@@ -193,12 +121,11 @@ class Home extends React.Component {
               <input onKeyDown= {(e)=>{if(e.keyCode === 13) this.searchForJobs()}} onChange = {this.setLocationToSearch} id = "location-input" type="text" name="" id=""/>
               <button  onClick = {this.searchForJobs}>Search!</button>
 
-            
-              {/* <button onClick={this.signOut}>Sign out</button> */}
 
               <div className="change-page-controls">
                 <button onClick = {this.changePage} id = "page-last">Last</button>
                 <button onClick = {this.changePage} id = "page-next">Next</button>
+                {/* <button onClick = {this.props.testCallBack}>Test!</button> */}
               </div>
 
             </div>
@@ -207,9 +134,8 @@ class Home extends React.Component {
             {this.state.resultsLoaded ? Object.values(this.state.currentSearchResults).map((job) => {
               // if(this.state.jobsAppliedFor[job.jobkey]){
                 return (
-                  <div key = {job.jobkey}>
-                    
-                    <SearchResult appliedFor = {Boolean(this.state.jobsAppliedFor[job.jobkey])} onClick = {this.displayJobDetails} data={job}/>
+                  <div key = {job.jobkey}>                   
+                    <SearchResult appliedFor = {Boolean(this.props.jobsAppliedFor[job.jobkey])} onClick = {this.displayJobDetails} data={job}/>
                   </div>
                 )
               // }
@@ -218,14 +144,90 @@ class Home extends React.Component {
           
             </div> {/* end wrapper */}
           </div> // end main div
-      )
+      );
     }
 }
+
+
+
 
 class App extends React.Component{
   constructor(props){
     super(props);
+    this.state = {
+      user : null,
+      loggedIn : false,
+      jobsAppliedFor : {}
+    }
+
+    this.applyForJob = this.applyForJob.bind(this);
   }
+
+  applyForJob(jobkey,jobObject){  
+    let appliedFor = this.state.jobsAppliedFor;
+    appliedFor[jobkey] = jobObject;
+    this.setState({
+      jobsAppliedFor : appliedFor
+    });
+
+    if(this.state.loggedIn && this.state.user !== null){
+      let dbRef = firebase.database().ref(`users/${this.state.user}/jobsAppliedFor`);
+      dbRef.set(appliedFor);
+    }
+  }
+
+  signIn() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.setCustomParameters({
+      prompt: 'select_account'
+    });
+    firebase.auth().signInWithPopup(provider)
+      .catch(function (error) {
+        console.log(error)
+      }).then((result)=>{
+        console.log(result)
+      })  
+  }
+
+  signOut() {
+    firebase.auth().signOut().then(function (success) {
+      console.log('Signed out!')
+    }, function (error) {
+      console.log(error);
+    });
+  }
+
+  callMeBack(){
+    console.log("baby");
+  }
+
+  componentDidMount(){
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          loggedIn: true,
+          user: user.uid
+        })
+
+        let dbRef = firebase.database().ref(`users/${this.state.user}`);
+
+        dbRef.on('value', (data) => {
+          console.log(data.val());
+          this.setState({
+            jobsAppliedFor : data.val().jobsAppliedFor
+          })
+        });
+      }
+      else {
+        this.setState({
+          loggedIn: false,
+          user: null,
+          jobsAppliedFor : {}
+        })
+      }
+    })
+  }
+
 
   render(){
     return(
@@ -236,8 +238,8 @@ class App extends React.Component{
           <div className="wrapper">
             <nav>
               <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/account">Account</Link></li>
+                <li><Link to={`/`}>Home</Link></li>
+                <li><Link to={`/account/`}>Account</Link></li>
               </ul>
             </nav>
             
@@ -246,13 +248,45 @@ class App extends React.Component{
             </div>
             
             <div className="sign-in-out">
-              <button className="sign-in">Sign In</button>
+                <button 
+                  className="sign-in" 
+                  onClick = {this.state.loggedIn ? this.signOut : this.signIn}
+                >
+                {this.state.loggedIn ? "Sign out" : "Sign in"}
+              </button>
             </div>
 
           </div>
         </header>
-        <Route path = "/" exact component = {Home} />
-        <Route path={`/account/`} exact component = {Account} />
+        <Route 
+          path = "/" 
+          exact 
+          render = {(props) => {
+            return (
+              <Home 
+                {...props} 
+                loggedIn = {this.state.loggedIn} 
+                user = {this.state.user}
+                applyForJob = {this.applyForJob} 
+                jobsAppliedFor = {this.state.jobsAppliedFor}
+              />);
+            }
+          } 
+        />
+        <Route 
+          path = "/account/" 
+          exact 
+          render = {(props) => {
+            return (
+              <Account 
+                {...props} 
+                loggedIn = {this.state.loggedIn} 
+                user = {this.state.user} 
+                jobsAppliedFor = {this.state.jobsAppliedFor}
+              />);
+            }
+          } 
+        />
       </div>
 
     </Router>)
