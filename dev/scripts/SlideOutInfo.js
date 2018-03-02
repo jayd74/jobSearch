@@ -19,7 +19,9 @@ const SlideOutInfo = (props) => {
 
            {props.hideSaveButton 
                 ? null
-                :  <button onClick = {() => {props.onSave(props.data.jobkey)}} className="save-button">Save</button>
+                :  <button onClick = {() => {props.onSave(props.data.jobkey)}} className="save-button">
+                    {!props.saved ? "Save" : "Remove From Saved Jobs"}
+                </button>
             }
 
             

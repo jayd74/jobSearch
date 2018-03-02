@@ -117,8 +117,16 @@ class Account extends React.Component {
                     </button>
                 </div>
                 {this.state.accountDetailsToDisplay === "applications" 
-                    ? <ApplicationDetails data={this.state} setApplicationDetails={this.setApplicationDetails} saveApplicationChanges={this.saveApplicationChanges} /> 
-                    : <JobsView jobsAppliedFor = {this.props.jobsAppliedFor} /> }                
+                    ? <ApplicationDetails 
+                        data={this.state} 
+                        setApplicationDetails={this.setApplicationDetails} 
+                        saveApplicationChanges={this.saveApplicationChanges} 
+                        /> 
+                    : <JobsView 
+                        jobsAppliedFor = {this.props.jobsAppliedFor} 
+                        jobsSaved = {this.props.jobsSaved}
+                        saveJob = {this.props.saveJob}
+                    /> }                
             </div>
         )   
     }
