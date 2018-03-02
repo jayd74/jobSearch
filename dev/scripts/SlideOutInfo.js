@@ -18,8 +18,8 @@ const SlideOutInfo = (props) => {
            className="apply-button">Apply</button>
 
             
-            }
-            {/* <button className="save-button">Saved</button> */}
+            <button id = {props.data.jobkey} onClick = {props.onApply} className="apply-button">Apply</button>
+            <button onClick = {() => {props.onSave(props.data.jobkey)}} className="save-button">Save</button>
         </div>
     )
 }

@@ -37,12 +37,20 @@ class Home extends React.Component {
       this.displayJobDetails = this.displayJobDetails.bind(this);
       this.hideJobDetails = this.hideJobDetails.bind(this);
       this.applyForJob = this.applyForJob.bind(this);
+      this.saveJob = this.saveJob.bind(this);
     }
 
     applyForJob(e){  
       let jobkey = e.target.id;
       let jobObject = this.state.currentSearchResults[e.target.id];
       this.props.applyForJob(jobkey,jobObject);
+    }
+
+    saveJob(k){
+      console.log(k);
+      let jobkey = k;
+      let jobObject = this.state.currentSearchResults[k];
+      this.props.saveJob(jobkey,jobObject);
     }
 
     searchForJobs(){
@@ -79,6 +87,7 @@ class Home extends React.Component {
     }
 
     changePage(e){
+      console.log(e.target.className);
       let _currentPage = this.state.currentPage;
       switch(e.target.id){  
         case "page-last" :
@@ -123,9 +132,8 @@ class Home extends React.Component {
 
 
               <div className="change-page-controls">
-                <button onClick = {this.changePage} id = "page-last">Last</button>
+                <button className = "test" onClick = {this.changePage} id = "page-last">Last</button>
                 <button onClick = {this.changePage} id = "page-next">Next</button>
-                {/* <button onClick = {this.props.testCallBack}>Test!</button> */}
               </div>
 
             </div>
@@ -135,12 +143,23 @@ class Home extends React.Component {
               // if(this.state.jobsAppliedFor[job.jobkey]){
                 return (
                   <div key = {job.jobkey}>                   
-                    <SearchResult appliedFor = {Boolean(this.props.jobsAppliedFor[job.jobkey])} onClick = {this.displayJobDetails} data={job}/>
+                    <SearchResult 
+                      appliedFor = {Boolean(this.props.jobsAppliedFor[job.jobkey])} 
+                      saved = {Boolean(this.props.jobsSaved[job.jobkey])}
+                      onClick = {this.displayJobDetails} 
+                      data={job}/>
                   </div>
                 )
               // }
             }): <h6 className="retrieving-jobs">Retrieving Job Prospects...</h6>}    
-            {this.state.currentlySelectedJob ? <SlideOutInfo onApply = {this.applyForJob} onClose = {this.hideJobDetails} data={this.state.currentlySelectedJob} /> : null}  
+            {this.state.currentlySelectedJob 
+                ? <SlideOutInfo 
+                    onApply = {this.applyForJob} 
+                    onSave = {this.saveJob} 
+                    onClose = {this.hideJobDetails} 
+                    data={this.state.currentlySelectedJob} 
+                  /> 
+                : null}  
           
             </div> {/* end wrapper */}
           </div> // end main div
@@ -157,10 +176,12 @@ class App extends React.Component{
     this.state = {
       user : null,
       loggedIn : false,
-      jobsAppliedFor : {}
+      jobsAppliedFor : {},
+      jobsSaved : {}
     }
 
     this.applyForJob = this.applyForJob.bind(this);
+    this.saveJob = this.saveJob.bind(this);
   }
 
   applyForJob(jobkey,jobObject){  
@@ -173,6 +194,19 @@ class App extends React.Component{
     if(this.state.loggedIn && this.state.user !== null){
       let dbRef = firebase.database().ref(`users/${this.state.user}/jobsAppliedFor`);
       dbRef.set(appliedFor);
+    }
+  }
+
+  saveJob(jobkey, jobObject){
+    let _jobsSaved = this.state.jobsSaved;
+    _jobsSaved[jobkey] = jobObject;
+    this.setState({
+      jobsSaved : _jobsSaved
+    })
+
+    if(this.state.loggedIn && this.state.user !== null){
+      let dbRef = firebase.database().ref(`users/${this.state.user}/jobsSaved`);
+      dbRef.set(_jobsSaved);
     }
   }
 
@@ -214,7 +248,8 @@ class App extends React.Component{
         dbRef.on('value', (data) => {
           console.log(data.val());
           this.setState({
-            jobsAppliedFor : data.val().jobsAppliedFor
+            jobsAppliedFor : data.val().jobsAppliedFor,
+            jobsSaved : data.val().jobsSaved
           })
         });
       }
@@ -268,7 +303,9 @@ class App extends React.Component{
                 loggedIn = {this.state.loggedIn} 
                 user = {this.state.user}
                 applyForJob = {this.applyForJob} 
+                saveJob = {this.saveJob}
                 jobsAppliedFor = {this.state.jobsAppliedFor}
+                jobsSaved = {this.state.jobsSaved}
               />);
             }
           } 
