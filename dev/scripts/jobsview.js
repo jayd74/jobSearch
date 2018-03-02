@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import SearchResult from './searchResult';
 import SlideOutInfo from './SlideOutInfo';
 
+
 class JobsView extends React.Component{
     constructor(props){
         super(props);
@@ -19,6 +20,8 @@ class JobsView extends React.Component{
         this.showJobDetails = this.showJobDetails.bind(this);
         this.renderJobDetails = this.renderJobDetails.bind(this);
         this.hideJobDetails = this.hideJobDetails.bind(this);
+        this.renderJobsSaved = this.renderJobsSaved.bind(this);
+        this.removeSaveJob = this.removeSaveJob.bind(this);
     }
     showApplied () {
         this.setState({
@@ -31,12 +34,29 @@ class JobsView extends React.Component{
         })
     }
 
+    removeSaveJob(k){
+        // the only time this method is ever called is when a job is being removed from save jobs
+        console.log(k);
+        let jobkey = k;
+        let jobObject = this.props.jobsSaved[k];
+        this.props.saveJob(jobkey,jobObject);
+        this.hideJobDetails();
+    }
+
     showJobDetails(e){
-        // console.log(this.props.jobsAppliedFor[e.target.id]);
-        this.setState({
-            currentlySelectedJob: this.props.jobsAppliedFor[e.target.id]
-        })
-        
+        switch(this.state.jobApplicationView){
+            case "savedJobs" :
+                this.setState({
+                    currentlySelectedJob: this.props.jobsSaved[e.target.id]
+                })
+            break;
+
+            case "appliedJobs" :
+                this.setState({
+                    currentlySelectedJob: this.props.jobsAppliedFor[e.target.id]
+                })
+            break;
+        }      
     }
 
     hideJobDetails() {
@@ -54,13 +74,14 @@ class JobsView extends React.Component{
             break;
 
             case "savedJobs" :
-                return <SlideOutInfo data={this.state.currentlySelectedJob} hideSaveButton = {true} onClose={this.hideJobDetails} />
+                return <SlideOutInfo saved = {true} onSave = {this.removeSaveJob} data={this.state.currentlySelectedJob} onClose={this.hideJobDetails} />
             break;
 
         }
     }
 
     renderJobsAppliedFor(){
+        
         return (
             <div>
                 <h2>Jobs Applied For:</h2>
@@ -78,6 +99,24 @@ class JobsView extends React.Component{
         )
     }
 
+    renderJobsSaved(){
+        return (
+            <div>
+                <h2>Jobs Saved:</h2>
+                {Object.values(this.props.jobsSaved).map((item)=>{
+                    return (
+                        <div>
+                        {/* <h3>{item.company}</h3> */}
+                        <SearchResult data={item} onClick={this.showJobDetails}/>
+                    </div>
+                    )
+                })}
+                {this.state.currentlySelectedJob ? this.renderJobDetails(): null}
+            </div>
+            
+        )
+    }
+
     render(){
         return (
             <div> 
@@ -88,11 +127,8 @@ class JobsView extends React.Component{
                 {this.state.jobApplicationView === "appliedJobs" ?
                     this.renderJobsAppliedFor()
                 :
-                <div>
-                    <p> saved jobs </p>
-                </div>
-                
-            }
+                    this.renderJobsSaved()
+                }
                 
             </div>
         );
