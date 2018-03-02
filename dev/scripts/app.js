@@ -247,10 +247,20 @@ class App extends React.Component{
 
         dbRef.on('value', (data) => {
           console.log(data.val());
-          this.setState({
-            jobsAppliedFor : data.val().jobsAppliedFor,
-            jobsSaved : data.val().jobsSaved
-          })
+          if(data.val().jobsAppliedFor){
+            this.setState({
+              jobsAppliedFor : data.val().jobsAppliedFor,
+            })
+          }
+          if(data.val().jobsSaved){
+            this.setState({
+              jobsSaved : data.val().jobsSaved
+            })
+          }
+          // this.setState({
+          //   jobsAppliedFor : data.val().jobsAppliedFor,
+          //   jobsSaved : data.val().jobsSaved
+          // })
         });
       }
       else {
