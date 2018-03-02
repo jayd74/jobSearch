@@ -11,15 +11,20 @@ const SlideOutInfo = (props) => {
             <a className = "job-details" href={props.data.url}>See Job Details</a>
             <h4>{props.data.formattedRelativeTime}</h4>
 
-            {props.view === "appliedJobs" ? 
+            {props.hideApplyButton ? 
             <p>APPLIED ON DATE</p>
             :
             <button id = {props.data.jobkey} onClick = {props.onApply}
-           className="apply-button">Apply</button>
+           className="apply-button">Apply</button>}
+
+           {props.hideSaveButton 
+                ? null
+                :  <button onClick = {() => {props.onSave(props.data.jobkey)}} className="save-button">Save</button>
+            }
 
             
-            <button id = {props.data.jobkey} onClick = {props.onApply} className="apply-button">Apply</button>
-            <button onClick = {() => {props.onSave(props.data.jobkey)}} className="save-button">Save</button>
+            {/* <button id = {props.data.jobkey} onClick = {props.onApply} className="apply-button">Apply</button>
+            <button onClick = {() => {props.onSave(props.data.jobkey)}} className="save-button">Save</button> */}
         </div>
     )
 }
