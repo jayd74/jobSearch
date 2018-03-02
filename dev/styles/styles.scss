@@ -2,6 +2,7 @@
 @import 'partials/searchResult';
 @import 'partials/slideOutInfo';
 @import 'partials/accountForm';
+@import 'partials/account';
 
 $primary-color: #7685A1;
 $secondary-color: #CA6295;
@@ -123,4 +124,9 @@ nav,
         transform: translateX(5px);
         transition: 0.3s;
     }
+}
+
+.retrieving-jobs {
+    text-align: center;
+    font-size: 18px;
 }

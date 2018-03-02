@@ -139,7 +139,7 @@ class Home extends React.Component {
                   </div>
                 )
               // }
-            }): <h6>Retrieving Job Prospects...</h6>}    
+            }): <h6 className="retrieving-jobs">Retrieving Job Prospects...</h6>}    
             {this.state.currentlySelectedJob ? <SlideOutInfo onApply = {this.applyForJob} onClose = {this.hideJobDetails} data={this.state.currentlySelectedJob} /> : null}  
           
             </div> {/* end wrapper */}
