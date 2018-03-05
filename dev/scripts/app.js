@@ -127,24 +127,19 @@ class Home extends React.Component {
     render() {
       return (
           <div>
-            <div className="wrapper">
-            
-
             <div className="search-for-jobs">
-            <h1>One Search Away from Getting Your Front End Job!</h1>
+              <h1>Hacked<span>In</span></h1>
 
               <input onKeyDown= {(e)=>{if(e.keyCode === 13) this.searchForJobs()}} onChange = {this.setLocationToSearch} id = "location-input" type="text" name="" id=""/>
               <button  onClick = {this.searchForJobs}>Search!</button>
 
-
-              <div className="change-page-controls">
-                <button className = "test" onClick = {this.changePage} id = "page-last">Last</button>
-                <button onClick = {this.changePage} id = "page-next">Next</button>
-              </div>
-
             </div>
 
-
+            <div className="wrapper">
+              <div className="change-page-controls">
+                  <button className = "test" onClick = {this.changePage} id = "page-last">Last</button>
+                  <button onClick = {this.changePage} id = "page-next">Next</button>
+              </div>
             {this.state.resultsLoaded ? Object.values(this.state.currentSearchResults).map((job) => {
               // if(this.state.jobsAppliedFor[job.jobkey]){
                 return (
@@ -304,7 +299,8 @@ class App extends React.Component{
             </nav>
             
             <div className="logo">
-              <img src="/images/noun_1036986_cc.svg" />
+            <h2>HackedIn</h2>
+              {/* <img src="/images/noun_1036986_cc.svg" /> */}
             </div>
             
             <div className="sign-in-out">
