@@ -21,7 +21,6 @@ class ApplicationDetails extends React.Component {
         return (
             <div>
                 <div className="application-details-mode-selections">
-                    <button>Preview</button>
                     <button onClick = {this.enterEditMode}>Edit</button>
                 </div>
                 {this.state.editMode ? this.renderEditMode() : this.renderPreviewMode()}
@@ -73,7 +72,7 @@ class ApplicationDetails extends React.Component {
                         <label htmlFor="cover-letter">Cover Letter</label>
                         <textarea name="" id="coverLetter" onChange={this.props.setApplicationDetails} value={this.props.data.application.coverLetter}></textarea>
                     </div>
-                    <button className="account-form-submit">Save changes</button> 
+                    <button onClick = {this.exitEditMode} className="account-form-submit">Save changes</button> 
                 </form>
             </div>
         )
@@ -81,7 +80,23 @@ class ApplicationDetails extends React.Component {
 
     renderPreviewMode(){
         return (
-            <div>PREVIEW!</div>
+            <div>
+                <h3>My Application:</h3>
+                <section className="application-section">
+                    <h4>{this.props.data.application.name}</h4>
+                    <h4>About Me</h4>
+                    <p>{this.props.data.application.summary}</p>
+                    <h4>My Experience</h4>
+                    <p>{this.props.data.application.experience}</p>
+                    <h4>My Education</h4>
+                    <p>{this.props.data.application.education}</p>
+                    <h4>My Skills</h4>
+                    <p>{this.props.data.application.skills}</p>
+                    <h4>My Interests</h4>
+                    <p>{this.props.data.application.interests}</p>
+                    <p>{this.props.data.application.coverLetter}</p>
+                </section>               
+            </div>
         )
     }
 
