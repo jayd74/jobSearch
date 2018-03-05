@@ -4,7 +4,7 @@ const SlideOutInfo = (props) => {
     return (
         
             <div className="slide-out-modal">
-        <div className="slide-out-container">
+            <div className="slide-out-container">
                 <button onClick={props.onClose} className="close-btn"><i className="fas fa-times"></i></button>
                 <h2>{props.data.jobtitle}</h2>
                 <h3>{props.data.company}</h3>

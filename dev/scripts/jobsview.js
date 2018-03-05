@@ -22,6 +22,7 @@ class JobsView extends React.Component{
         this.hideJobDetails = this.hideJobDetails.bind(this);
         this.renderJobsSaved = this.renderJobsSaved.bind(this);
         this.removeSaveJob = this.removeSaveJob.bind(this);
+        this.applyForJob = this.applyForJob.bind(this);
     }
     showApplied () {
         this.setState({
@@ -70,14 +71,36 @@ class JobsView extends React.Component{
         
         switch(this.state.jobApplicationView){
             case "appliedJobs" :
-                return <SlideOutInfo data={this.state.currentlySelectedJob} hideApplyButton = {true} hideSaveButton = {true} onClose={this.hideJobDetails} />
+                return <SlideOutInfo 
+                    data={this.state.currentlySelectedJob} 
+                    hideApplyButton = {true} 
+                    hideSaveButton = {true} 
+                    onClose={this.hideJobDetails} 
+                    application={this.props.application} 
+                    />
             break;
 
             case "savedJobs" :
-                return <SlideOutInfo saved = {true} onSave = {this.removeSaveJob} data={this.state.currentlySelectedJob} onClose={this.hideJobDetails} />
+                return <SlideOutInfo 
+                    hideApplyButton={Boolean(this.props.jobsAppliedFor[this.state.currentlySelectedJob.jobkey])}
+                    saved = {true} 
+                    onSave = {this.removeSaveJob} 
+                    data={this.state.currentlySelectedJob} 
+                    onClose={this.hideJobDetails} 
+                    application={this.props.application} 
+                    onApply = {this.applyForJob} 
+                    />
             break;
 
         }
+    }
+
+    applyForJob(e){
+        console.log(e.target.id);
+        console.log(this.props.applyForJob);
+        let jobkey = e.target.id;
+        let jobObject = this.props.jobsSaved[e.target.id];
+        this.props.applyForJob(jobkey,jobObject);
     }
 
     renderJobsAppliedFor(){
