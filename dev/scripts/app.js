@@ -193,11 +193,20 @@ class App extends React.Component{
       loggedIn : false,
       jobsAppliedFor : {},
       jobsSaved : {},
-      userApplication: {}
+      userApplication: {
+          name: '',
+          summary: '',
+          experience: '',
+          education: '',
+          skills: '',
+          interests: '',
+          coverLetter: ''
+      },
     }
 
     this.applyForJob = this.applyForJob.bind(this);
     this.saveJob = this.saveJob.bind(this);
+    this.changeApplication = this.changeApplication.bind(this);
   }
 
   applyForJob(jobkey,jobObject){  
@@ -308,6 +317,12 @@ class App extends React.Component{
     })
   }
 
+  changeApplication(newApplication){
+    this.setState({
+      userApplication : newApplication
+    })
+  }
+
 
   render(){
     return(
@@ -371,6 +386,7 @@ class App extends React.Component{
                 jobsSaved = {this.state.jobsSaved}
                 saveJob = {this.saveJob}
                 application = {this.state.userApplication}
+                changeApplication = {this.changeApplication}
               />);
             }
           } 
