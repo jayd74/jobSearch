@@ -31,6 +31,7 @@ class Home extends React.Component {
         currentlySelectedJob : null
       }
 
+
       this.setLocationToSearch = this.setLocationToSearch.bind(this);
       this.searchForJobs = this.searchForJobs.bind(this);
       this.changePage = this.changePage.bind(this);
@@ -39,6 +40,8 @@ class Home extends React.Component {
       this.applyForJob = this.applyForJob.bind(this);
       this.saveJob = this.saveJob.bind(this);
     }
+
+    
 
     applyForJob(e){
       // let currentDate = new Date();
@@ -166,6 +169,7 @@ class Home extends React.Component {
             }): <h6 className="retrieving-jobs">Retrieving Job Prospects...</h6>}    
             {this.state.currentlySelectedJob 
                 ? <SlideOutInfo 
+                    renderJobApplicationFile = {() => {this.props.renderJobApplicationFile(this.state.currentlySelectedJob)}}
                     hideApplyButton = {Boolean(this.props.jobsAppliedFor[this.state.currentlySelectedJob.jobkey])}
                     onApply = {this.applyForJob} 
                     onSave = {this.saveJob} 
@@ -207,6 +211,11 @@ class App extends React.Component{
     this.applyForJob = this.applyForJob.bind(this);
     this.saveJob = this.saveJob.bind(this);
     this.changeApplication = this.changeApplication.bind(this);
+    this.renderJobApplicationFile = this.renderJobApplicationFile.bind(this);
+  }
+
+  renderJobApplicationFile(jobObject) {
+    console.log(jobObject);
   }
 
   applyForJob(jobkey,jobObject){  
@@ -368,6 +377,7 @@ class App extends React.Component{
                 jobsAppliedFor = {this.state.jobsAppliedFor}
                 jobsSaved = {this.state.jobsSaved}
                 application = {this.state.userApplication}
+                renderJobApplicationFile = {this.renderJobApplicationFile}
               />);
             }
           } 
