@@ -19,7 +19,7 @@ class ApplicationDetails extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="wrapper">
                 <div className="application-details-mode-selections">
                     <button onClick = {this.enterEditMode}>Edit</button>
                 </div>
@@ -85,10 +85,10 @@ class ApplicationDetails extends React.Component {
 
     renderPreviewMode(){
         return (
-            <div>
-                <h3>My Application:</h3>
+            <div className="wrapper">
                 <section className="application-section">
-                    <h4>{this.props.application.name}</h4>
+                    <h2>My Application:</h2>
+                    <h3>{this.props.application.name}</h3>
                     <h4>About Me</h4>
                     <p>{this.props.application.summary}</p>
                     <h4>My Experience</h4>
