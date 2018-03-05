@@ -17,5 +17,15 @@
     transition: 0.3s;
 }
 
+.application-section {
+    h2{
+        color: $secondary-color;
+    }
+    h4 {
+        color: $primary-color;
+        font-size: 20px;
+    }
+}
+
    
  
