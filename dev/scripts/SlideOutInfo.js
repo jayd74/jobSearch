@@ -10,7 +10,7 @@ const SlideOutInfo = (props) => {
                 <h3>{props.data.company}</h3>
                 <h3>{props.data.formattedLocation}</h3>
                 <p dangerouslySetInnerHTML={{ __html: props.data.snippet }}></p>
-                <a className = "job-details" href={props.data.url}>See Job Details</a>
+                <a className = "job-details" href={props.data.url} target="_blank">See Job Details</a>
                 <h4>{props.data.formattedRelativeTime}</h4>
 
                 {props.hideApplyButton ? 
