@@ -28,6 +28,10 @@ class ApplicationDetails extends React.Component {
             );
     }
 
+    componentDidMount(){
+        console.log(this.props.data);
+    }
+
     enterEditMode(){
         this.setState({
             editMode : true
@@ -43,37 +47,38 @@ class ApplicationDetails extends React.Component {
     renderEditMode(){
         return (
             <div>
-                <form onSubmit={this.props.saveApplicationChanges}>
+                {/* <form > */}
                     <div className="account-form-input">
                         <label htmlFor="name">Name</label>
-                        <input type="text" id="name" onChange={this.props.setApplicationDetails} value={this.props.data.application.name}/>
+                        <input type="text" id="name" onChange={this.props.setApplicationDetails} value={this.props.application.name}/>
                     </div>
                     <div className="account-form-input">
                         <label htmlFor="summary">Summary</label>
-                        <textarea name="" id="summary" onChange={this.props.setApplicationDetails} value={this.props.data.application.summary}></textarea>
+                        <textarea name="" id="summary" onChange={this.props.setApplicationDetails} value={this.props.application.summary}></textarea>
                     </div>
                     <div className="account-form-input">
                         <label htmlFor="experience">Experience</label>
-                        <textarea name="" id="experience" onChange={this.props.setApplicationDetails} value={this.props.data.application.experience}></textarea>
+                        <textarea name="" id="experience" onChange={this.props.setApplicationDetails} value={this.props.application.experience}></textarea>
                     </div>
                     <div className="account-form-input">
                         <label htmlFor="education">Education</label>
-                        <textarea name="" id="education" onChange={this.props.setApplicationDetails} value={this.props.data.application.education}></textarea>
+                        <textarea name="" id="education" onChange={this.props.setApplicationDetails} value={this.props.application.education}></textarea>
                     </div>
                     <div className="account-form-input">
                         <label htmlFor="skills">Skills</label>
-                        <textarea name="" id="skills" onChange={this.props.setApplicationDetails} value={this.props.data.application.skills}></textarea>
+                        <textarea name="" id="skills" onChange={this.props.setApplicationDetails} value={this.props.application.skills}></textarea>
                     </div>
                     <div className="account-form-input">
                         <label htmlFor="interests">Interests</label>
-                        <textarea name="" id="interests" onChange={this.props.setApplicationDetails} value={this.props.data.application.interests}></textarea>
+                        <textarea name="" id="interests" onChange={this.props.setApplicationDetails} value={this.props.application.interests}></textarea>
                     </div>
                     <div className="account-form-input">
                         <label htmlFor="cover-letter">Cover Letter</label>
-                        <textarea name="" id="coverLetter" onChange={this.props.setApplicationDetails} value={this.props.data.application.coverLetter}></textarea>
+                        <textarea name="" id="coverLetter" onChange={this.props.setApplicationDetails} value={this.props.application.coverLetter}></textarea>
                     </div>
-                    <button onClick = {this.exitEditMode} className="account-form-submit">Save changes</button> 
-                </form>
+                    <button onClick = {() => {this.exitEditMode();this.props.saveApplicationChanges()} } className="account-form-submit">Save changes</button> 
+                {/* </form> */}
+
             </div>
         )
     }
@@ -82,19 +87,19 @@ class ApplicationDetails extends React.Component {
         return (
             <div className="wrapper">
                 <section className="application-section">
-                <h2>My Application:</h2>
-                    <h3>{this.props.data.application.name}</h3>
+                    <h2>My Application:</h2>
+                    <h3>{this.props.application.name}</h3>
                     <h4>About Me</h4>
-                    <p>{this.props.data.application.summary}</p>
+                    <p>{this.props.application.summary}</p>
                     <h4>My Experience</h4>
-                    <p>{this.props.data.application.experience}</p>
+                    <p>{this.props.application.experience}</p>
                     <h4>My Education</h4>
-                    <p>{this.props.data.application.education}</p>
+                    <p>{this.props.application.education}</p>
                     <h4>My Skills</h4>
-                    <p>{this.props.data.application.skills}</p>
+                    <p>{this.props.application.skills}</p>
                     <h4>My Interests</h4>
-                    <p>{this.props.data.application.interests}</p>
-                    <p>{this.props.data.application.coverLetter}</p>
+                    <p>{this.props.application.interests}</p>
+                    <p>{this.props.application.coverLetter}</p>
                 </section>               
             </div>
         )
@@ -106,15 +111,15 @@ class Account extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            application: {
-                name: '',
-                summary: '',
-                experience: '',
-                education: '',
-                skills: '',
-                interests: '',
-                coverLetter: ''
-            },
+            // application: {
+            //     name: '',
+            //     summary: '',
+            //     experience: '',
+            //     education: '',
+            //     skills: '',
+            //     interests: '',
+            //     coverLetter: ''
+            // },
             accountDetailsToDisplay : "applications"
         }
 
@@ -122,22 +127,27 @@ class Account extends React.Component {
         this.setApplicationDetails = this.setApplicationDetails.bind(this);
         this.saveApplicationChanges = this.saveApplicationChanges.bind(this);
     }
-      
+
+
     setApplicationDetails(e) {
-        let applicationState = this.state.application;
+       // let applicationState = this.state.application;
+        let applicationState = this.props.application;
         applicationState[[e.target.id]] = e.target.value;
         console.log("change");
-        this.setState({
-           application: applicationState
-        })
+
+        // this.setState({
+        //    application: applicationState
+        // })
+
+        // set the userApplication state in App
+        this.props.changeApplication(applicationState);
     }
 
-    saveApplicationChanges(event) {
-        event.preventDefault();
+    saveApplicationChanges() {
         console.log("save changes");
         const dbRef = firebase.database().ref(`users/${this.props.user}/currentApplication`);
-        dbRef.set(this.state.application);
-        
+        // this can be props
+        dbRef.set(this.props.application);
     }
 
     applyForJob(e) {
@@ -155,6 +165,7 @@ class Account extends React.Component {
 
     componentDidMount(){
         console.log("Account: " + this.props.loggedIn + " " + this.props.user);
+        const dbRef = firebase.database().ref(`users/${this.props.user}/currentApplication`);
     }
       
     render() {
@@ -191,6 +202,7 @@ class Account extends React.Component {
                         setApplicationDetails={this.setApplicationDetails} 
                         saveApplicationChanges={this.saveApplicationChanges}
                         user = {this.props.user}
+                        application = {this.props.application}
                         /> 
                     : <JobsView 
                         jobsAppliedFor = {this.props.jobsAppliedFor} 
