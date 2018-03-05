@@ -17,7 +17,7 @@ $quaternary-color: #846BA7;
 
 body {
     font-family: 'Mukta Malar', sans-serif; 
-    // background: $tetiary-color;
+    background: #ebebeb;
 }
 header {
     width: 100%;
@@ -70,6 +70,7 @@ header {
 .wrapper {
     max-width: 1080px;
     margin: 0 auto;
+    position: relative;
 }
 
 nav, 
@@ -87,7 +88,8 @@ nav,
 
 .search-for-jobs {
     clear: both;
-    background: url('/images/mbpbg.jpg') 50%;
+    background: url('/images/mbpbg.jpg') 50% no-repeat;
+    background-size: cover;
     height: 100vh;
     text-align: center;
     margin: 0;
@@ -98,28 +100,28 @@ nav,
         width: 50%;
         margin: 0px auto;
         line-height: 70px;
-        padding-top: 230px;
+        padding-top: 35vh;
         span {
-            color: $quaternary-color;
+            color: $secondary-color;
         }
     }
     input {
-        padding: 10px;
+        padding: 5px;
         font-size: 25px;
-        width: 25%;
+        width: 15%;
         text-align: center;
         border: solid 3px $primary-color;
         border-radius: 5px;
         margin: 10px;
     }
     button {
-        padding: 10px;
-        background: $quaternary-color;
+        padding: 5px;
+        background: $secondary-color;
         color: white;
         border-radius: 5px;
         display: inline-block;
         font-size: 25px;
-        border: 3px solid $quaternary-color;
+        border: 3px solid $secondary-color;
     }
     button:hover {
         background: $secondary-color;
