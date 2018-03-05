@@ -20,9 +20,9 @@ class ApplicationDetails extends React.Component {
     render() {
         return (
             <div className="wrapper">
-                <div className="application-details-mode-selections">
-                    <button onClick = {this.enterEditMode}>Edit</button>
-                </div>
+                {/* <div className="application-details-mode-selections">
+                    <button onClick={this.enterEditMode}><i class="far fa-edit"></i></button>
+                </div> */}
                 {this.state.editMode ? this.renderEditMode() : this.renderPreviewMode()}
             </div>
             );
@@ -86,19 +86,28 @@ class ApplicationDetails extends React.Component {
     renderPreviewMode(){
         return (
             <div className="wrapper">
+                    <h2 className="my-application">My Application:
+                        <span>
+                            <button onClick={this.enterEditMode}>
+                                <i class="far fa-edit"></i>
+                            </button>
+                        </span>
+                    </h2>
                 <section className="application-section">
-                    <h2>My Application:</h2>
+
+
                     <h3>{this.props.application.name}</h3>
                     <h4>About Me</h4>
                     <p>{this.props.application.summary}</p>
-                    <h4>My Experience</h4>
+                    <h4>Job Experience</h4>
                     <p>{this.props.application.experience}</p>
-                    <h4>My Education</h4>
+                    <h4>Education</h4>
                     <p>{this.props.application.education}</p>
-                    <h4>My Skills</h4>
+                    <h4>Skills & Qualifications</h4>
                     <p>{this.props.application.skills}</p>
-                    <h4>My Interests</h4>
+                    <h4>Interests</h4>
                     <p>{this.props.application.interests}</p>
+                    <h4>Cover Letter</h4>
                     <p>{this.props.application.coverLetter}</p>
                 </section>               
             </div>

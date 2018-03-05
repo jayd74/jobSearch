@@ -17,15 +17,38 @@
     transition: 0.3s;
 }
 
-.application-section {
-    h2{
-        color: $secondary-color;
+.my-application{
+    color: $secondary-color;
+    font-size: 35px;
+    margin: 20px 0;
+    button {
+        // color: $secondary-color;
+        margin: 0 10px;
+        transition: 0.3s;
     }
-    h4 {
-        color: $primary-color;
-        font-size: 20px;
+    button:hover,
+    button:focus {
+        color:$primary-color;
+        transition: 0.3s
     }
 }
+.application-section {
+    background: white;
+    padding: 50px;
+    h3 {
+            font-size: 50px;
+            text-align: center;
+    }
+    h4 {
+            color: $primary-color;
+            font-size: 30px;
+            margin-top: 25px;
+    }
+    p {
+        font-size: 25px;
+    }
+}
+
 
    
  
