@@ -7,7 +7,9 @@
 
 $primary-color: #7685A1;
 $secondary-color: #CA6295;
-$tetiary-color: #ECE6D0;
+$tetiary-color: white;
+// $tetiary-color: #ECE6D0;
+
 $quaternary-color: #846BA7;
 
 // * {
@@ -36,6 +38,9 @@ header {
             font-size: 45px;
             font-weight: 700;
             opacity: 0.9;
+            span {
+                color: $secondary-color;
+            }
         }
     }
     
@@ -81,11 +86,6 @@ nav,
     text-align: center;
 }
 
-
-.account-button-toggled{
-    background-color : lightblue;
-}
-
 .search-for-jobs {
     clear: both;
     background: url('/images/mbpbg.jpg') 50% no-repeat;
@@ -96,7 +96,7 @@ nav,
     max-width: 100%;
     h1 {
         color: $tetiary-color;
-        font-size: 50px;
+        font-size: 45px;
         width: 50%;
         margin: 0px auto;
         line-height: 70px;
@@ -106,8 +106,8 @@ nav,
         }
     }
     input {
-        padding: 5px;
-        font-size: 25px;
+        // padding: 5px;
+        font-size: 20px;
         width: 15%;
         text-align: center;
         border: solid 3px $primary-color;
@@ -115,17 +115,18 @@ nav,
         margin: 10px;
     }
     button {
-        padding: 5px;
+        padding:0 10px;
         background: $secondary-color;
         color: white;
         border-radius: 5px;
         display: inline-block;
-        font-size: 25px;
+        font-size: 20px;
         border: 3px solid $secondary-color;
     }
     button:hover {
-        background: $secondary-color;
-        border: 3px solid $secondary-color;
+        background: $quaternary-color;
+        border: 3px solid $quaternary-color;
+        transition: 0.3s;   
     }
 }
 

@@ -83,7 +83,7 @@ class JobsView extends React.Component{
     renderJobsAppliedFor(){
         
         return (
-            <div>
+            <div className="wrapper jobs-view">
                 <h2>Jobs Applied For:</h2>
                 {Object.values(this.props.jobsAppliedFor).map((item)=>{
                     return (
@@ -101,7 +101,7 @@ class JobsView extends React.Component{
 
     renderJobsSaved(){
         return (
-            <div>
+            <div className="wrapper">
                 <h2>Jobs Saved:</h2>
                 {Object.values(this.props.jobsSaved).map((item)=>{
                     return (

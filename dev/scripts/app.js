@@ -309,7 +309,7 @@ class App extends React.Component{
             </nav>
             
             <div className="logo">
-            <h2>HackedIn</h2>
+            <h2>Hacked<span>In</span></h2>
               {/* <img src="/images/noun_1036986_cc.svg" /> */}
             </div>
             
