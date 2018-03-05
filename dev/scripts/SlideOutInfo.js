@@ -12,7 +12,7 @@ const SlideOutInfo = (props) => {
             <h4>{props.data.formattedRelativeTime}</h4>
 
             {props.hideApplyButton ? 
-            <p>APPLIED ON DATE</p>
+            <p>Applied on {props.data.dateApplied}</p>
             :
             <button id = {props.data.jobkey} onClick = {props.onApply}
            className="apply-button">Apply</button>}

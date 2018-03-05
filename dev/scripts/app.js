@@ -28,7 +28,7 @@ class Home extends React.Component {
         currentPage : 0,
         currentSearchResults : {},
         resultsLoaded : true,
-        currentlySelectedJob : null,
+        currentlySelectedJob : null
       }
 
       this.setLocationToSearch = this.setLocationToSearch.bind(this);
@@ -40,9 +40,15 @@ class Home extends React.Component {
       this.saveJob = this.saveJob.bind(this);
     }
 
-    applyForJob(e){  
+    applyForJob(e){
+      let currentDate = new Date();
+      currentDate = currentDate.toString();
+      currentDate = currentDate.substring(0, 15);
+      console.log(currentDate);  
       let jobkey = e.target.id;
       let jobObject = this.state.currentSearchResults[e.target.id];
+      jobObject.dateApplied = currentDate;
+      console.log(jobObject);
       this.props.applyForJob(jobkey,jobObject);
     }
 
