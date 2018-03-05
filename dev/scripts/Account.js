@@ -10,9 +10,38 @@ import JobsView from './jobsview';
 class ApplicationDetails extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            editMode : false
+        }
+        this.enterEditMode = this.enterEditMode.bind(this);
+        this.exitEditMode = this.exitEditMode.bind(this);
     }
 
     render() {
+        return (
+            <div>
+                <div className="application-details-mode-selections">
+                    <button>Preview</button>
+                    <button onClick = {this.enterEditMode}>Edit</button>
+                </div>
+                {this.state.editMode ? this.renderEditMode() : this.renderPreviewMode()}
+            </div>
+            );
+    }
+
+    enterEditMode(){
+        this.setState({
+            editMode : true
+        })
+    }
+
+    exitEditMode(){
+        this.setState({
+            editMode : false
+        })
+    }
+
+    renderEditMode(){
         return (
             <div>
                 <form onSubmit={this.props.saveApplicationChanges}>
@@ -46,8 +75,16 @@ class ApplicationDetails extends React.Component {
                     </div>
                     <button className="account-form-submit">Save changes</button> 
                 </form>
-            </div>)
-            }
+            </div>
+        )
+    }
+
+    renderPreviewMode(){
+        return (
+            <div>PREVIEW!</div>
+        )
+    }
+
 }
 
 class Account extends React.Component {
