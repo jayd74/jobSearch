@@ -43,12 +43,12 @@ class Home extends React.Component {
     applyForJob(e){
       let currentDate = new Date();
       currentDate = currentDate.toString();
-      currentDate = currentDate.substring(0, 15);
-      console.log(currentDate);  
+      currentDate = currentDate.substring(0, 15); 
+
       let jobkey = e.target.id;
       let jobObject = this.state.currentSearchResults[e.target.id];
       jobObject.dateApplied = currentDate;
-      console.log(jobObject);
+      
       this.props.applyForJob(jobkey,jobObject);
     }
 
@@ -113,9 +113,19 @@ class Home extends React.Component {
     }
 
     displayJobDetails(e){
-      this.setState({
-        currentlySelectedJob : this.state.currentSearchResults[e.target.id]
-      })
+      // in case that there is a job in jobsAppliedFor of e.target.id, then set currently selection job 
+      // to that job applied for
+      if(this.props.jobsAppliedFor[e.target.id]){
+        this.setState({
+          currentlySelectedJob : this.props.jobsAppliedFor[e.target.id]
+        })
+      }
+      // else, set currently selected job from list of search results
+      else{
+        this.setState({
+          currentlySelectedJob : this.state.currentSearchResults[e.target.id]
+        })
+      }
     }
 
     hideJobDetails(){
