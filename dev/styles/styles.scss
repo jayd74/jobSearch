@@ -3,31 +3,47 @@
 @import 'partials/slideOutInfo';
 @import 'partials/accountForm';
 @import 'partials/account';
+@import 'partials/jobsview';
 
 $primary-color: #7685A1;
 $secondary-color: #CA6295;
 $tetiary-color: #ECE6D0;
 $quaternary-color: #846BA7;
 
-* {
-    // border: solid 1px black;
-    // box-sizing: border-box;
-}
+// * {
+//      border: solid 1px black;
+//      box-sizing: border-box;
+// }
 
 body {
     font-family: 'Mukta Malar', sans-serif; 
+    // background: $tetiary-color;
 }
 header {
     width: 100%;
     background: #4b5466;
     height: 100px;   
+    padding: 5px 0;
     color: $tetiary-color; 
-    img{
-        width: 75px;
+    .logo { 
+        background: url('/images/noun_1036986_cc-purple.svg') no-repeat center;
+        text-align: center;
+        width: 31%;
+        height: 75px;
         margin: 10px;
-        // text-align: center;
-        // margin: 0 auto;
+        h2 {
+            color: $tetiary-color;
+            font-size: 45px;
+            font-weight: 700;
+            opacity: 0.9;
+        }
     }
+    
+    // img{
+       
+    //     // text-align: center;
+    //     // margin: 0 auto;
+    // }
     a {
         text-decoration: none;
         color: $tetiary-color;
@@ -50,6 +66,7 @@ header {
     
 }
 
+
 .wrapper {
     max-width: 1080px;
     margin: 0 auto;
@@ -70,19 +87,26 @@ nav,
 
 .search-for-jobs {
     clear: both;
-    // background: $primary-color;
+    background: url('/images/mbpbg.jpg') 50%;
+    height: 100vh;
     text-align: center;
-    margin: 25px 0;
+    margin: 0;
+    max-width: 100%;
     h1 {
+        color: $tetiary-color;
         font-size: 50px;
-        width: 70%;
-        margin: 100px auto;
+        width: 50%;
+        margin: 0px auto;
         line-height: 70px;
+        padding-top: 230px;
+        span {
+            color: $quaternary-color;
+        }
     }
     input {
         padding: 10px;
         font-size: 25px;
-        width: 30%;
+        width: 25%;
         text-align: center;
         border: solid 3px $primary-color;
         border-radius: 5px;
@@ -104,8 +128,10 @@ nav,
 }
 
 .change-page-controls {
+    margin: 0 auto;
+    text-align: center;
     button {
-        margin: 10px;
+        margin: 20px 50px;
         font-size: 20px;
         background: none;
         color: $quaternary-color;

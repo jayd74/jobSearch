@@ -119,17 +119,18 @@ class JobsView extends React.Component{
 
     render(){
         return (
-            <div> 
-                <button onClick={this.showSaved}>saved</button>
-                <button onClick={this.showApplied}>applied</button>
-                {/* <h2>Jobs Applied For:</h2> */}
-                
-                {this.state.jobApplicationView === "appliedJobs" ?
-                    this.renderJobsAppliedFor()
-                :
-                    this.renderJobsSaved()
-                }
-                
+            <div>
+                <div className="jobs-saved-applied-btn"> 
+                    <button onClick={this.showSaved}>saved</button>
+                    <button onClick={this.showApplied}>applied</button>
+                    {/* <h2>Jobs Applied For:</h2> */}
+                </div>
+                    
+                    {this.state.jobApplicationView === "appliedJobs" ?
+                        this.renderJobsAppliedFor()
+                        :
+                        this.renderJobsSaved()
+                    }
             </div>
         );
     }

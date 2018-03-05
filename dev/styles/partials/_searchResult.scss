@@ -9,7 +9,7 @@ $quaternary-color: #846BA7;
     cursor: pointer;
     padding: 30px;
     margin: 25px auto;
-    background-color : white;
+    background-color : rgba($tetiary-color, 0.2);
     box-shadow: 0px 1px 3px grey;
     h3{
         font-size: 25px;
@@ -43,6 +43,7 @@ $quaternary-color: #846BA7;
         float: right;
         font-size: 20px;
         margin : 5px;
+        color: $secondary-color;
     }
 }
 
