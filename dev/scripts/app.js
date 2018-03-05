@@ -41,13 +41,13 @@ class Home extends React.Component {
     }
 
     applyForJob(e){
-      let currentDate = new Date();
-      currentDate = currentDate.toString();
-      currentDate = currentDate.substring(0, 15); 
+      // let currentDate = new Date();
+      // currentDate = currentDate.toString();
+      // currentDate = currentDate.substring(0, 15); 
 
       let jobkey = e.target.id;
       let jobObject = this.state.currentSearchResults[e.target.id];
-      jobObject.dateApplied = currentDate;
+      // jobObject.dateApplied = currentDate;
       
       this.props.applyForJob(jobkey,jobObject);
     }
@@ -171,6 +171,7 @@ class Home extends React.Component {
                     onSave = {this.saveJob} 
                     onClose = {this.hideJobDetails} 
                     data={this.state.currentlySelectedJob}
+                    application = {this.props.application}
                     saved = {Boolean(this.props.jobsSaved[this.state.currentlySelectedJob.jobkey])}
                   /> 
                 : null}  
@@ -191,7 +192,8 @@ class App extends React.Component{
       user : null,
       loggedIn : false,
       jobsAppliedFor : {},
-      jobsSaved : {}
+      jobsSaved : {},
+      userApplication: {}
     }
 
     this.applyForJob = this.applyForJob.bind(this);
@@ -201,6 +203,14 @@ class App extends React.Component{
   applyForJob(jobkey,jobObject){  
     let appliedFor = this.state.jobsAppliedFor;
     appliedFor[jobkey] = jobObject;
+    appliedFor[jobkey].jobApplication = this.state.userApplication;
+
+    let currentDate = new Date();
+    currentDate = currentDate.toString();
+    currentDate = currentDate.substring(0, 15); 
+    appliedFor[jobkey].dateApplied = currentDate;
+
+    
     this.setState({
       jobsAppliedFor : appliedFor
     });
@@ -281,6 +291,11 @@ class App extends React.Component{
               jobsSaved : data.val().jobsSaved
             })
           }
+          if(data.val().currentApplication) {
+            this.setState({
+              userApplication: data.val().currentApplication
+            })
+          }
         });
       }
       else {
@@ -337,6 +352,7 @@ class App extends React.Component{
                 saveJob = {this.saveJob}
                 jobsAppliedFor = {this.state.jobsAppliedFor}
                 jobsSaved = {this.state.jobsSaved}
+                application = {this.state.userApplication}
               />);
             }
           } 
@@ -351,8 +367,10 @@ class App extends React.Component{
                 loggedIn = {this.state.loggedIn} 
                 user = {this.state.user} 
                 jobsAppliedFor = {this.state.jobsAppliedFor}
+                applyForJob = {this.applyForJob}
                 jobsSaved = {this.state.jobsSaved}
                 saveJob = {this.saveJob}
+                application = {this.state.userApplication}
               />);
             }
           } 

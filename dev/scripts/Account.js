@@ -125,6 +125,19 @@ class Account extends React.Component {
         
     }
 
+    applyForJob(e) {
+        let currentDate = new Date();
+        currentDate = currentDate.toString();
+        currentDate = currentDate.substring(0, 15);
+
+        let jobkey = e.target.id;
+        let jobObject = this.state.currentSearchResults[e.target.id];
+        jobObject.dateApplied = currentDate;
+
+        this.props.applyForJob(jobkey, jobObject);
+    }
+
+
     componentDidMount(){
         console.log("Account: " + this.props.loggedIn + " " + this.props.user);
     }
@@ -168,6 +181,8 @@ class Account extends React.Component {
                         jobsAppliedFor = {this.props.jobsAppliedFor} 
                         jobsSaved = {this.props.jobsSaved}
                         saveJob = {this.props.saveJob}
+                        application = {this.props.application}
+                        applyForJob = {this.props.applyForJob}
                     /> }                
             </div>
         )   
