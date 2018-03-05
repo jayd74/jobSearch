@@ -67,7 +67,8 @@ class Account extends React.Component {
         }
 
         this.displayAccountDetails = this.displayAccountDetails.bind(this);
-         this.setApplicationDetails = this.setApplicationDetails.bind(this);
+        this.setApplicationDetails = this.setApplicationDetails.bind(this);
+        this.saveApplicationChanges = this.saveApplicationChanges.bind(this);
     }
       
     setApplicationDetails(e) {
@@ -82,6 +83,9 @@ class Account extends React.Component {
     saveApplicationChanges(event) {
         event.preventDefault();
         console.log("save changes");
+        const dbRef = firebase.database().ref(`users/${this.props.user}/currentApplication`);
+        dbRef.set(this.state.application);
+        
     }
 
     componentDidMount(){
@@ -120,7 +124,8 @@ class Account extends React.Component {
                     ? <ApplicationDetails 
                         data={this.state} 
                         setApplicationDetails={this.setApplicationDetails} 
-                        saveApplicationChanges={this.saveApplicationChanges} 
+                        saveApplicationChanges={this.saveApplicationChanges}
+                        user = {this.props.user}
                         /> 
                     : <JobsView 
                         jobsAppliedFor = {this.props.jobsAppliedFor} 
