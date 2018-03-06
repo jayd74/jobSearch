@@ -6,7 +6,9 @@ import {
 } from 'react-router-dom';
 import JobsView from './jobsview';
 
-
+/**
+ * ApplicationDetails allows the user to edit their application and displays a preview of the application on the screen
+ */
 class ApplicationDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -17,34 +19,30 @@ class ApplicationDetails extends React.Component {
         this.exitEditMode = this.exitEditMode.bind(this);
     }
 
-    render() {
-        return (
-            <div className="wrapper">
-                {this.state.editMode ? this.renderEditMode() : this.renderPreviewMode()}
-            </div>
-            );
-    }
-
-    componentDidMount(){
-        console.log(this.props.data);
-    }
-
+    /**
+     * Initiates a mode that allows the user to edit their application by setting the editMode to true
+     */
     enterEditMode(){
         this.setState({
             editMode : true
         })
     }
 
+    /**
+     * Exits the mode that allows the user to edit their application by setting the editMode to false
+     */
     exitEditMode(){
         this.setState({
             editMode : false
         })
     }
 
+    /**
+     * Renders input fields for the user application so the user can edit and save the application
+     */
     renderEditMode(){
         return (
             <div>
-                {/* <form > */}
                     <div className="account-form-input">
                         <label htmlFor="name">Name</label>
                         <input type="text" id="name" onChange={this.props.setApplicationDetails} value={this.props.application.name}/>
@@ -74,19 +72,20 @@ class ApplicationDetails extends React.Component {
                         <textarea name="" id="coverLetter" onChange={this.props.setApplicationDetails} value={this.props.application.coverLetter}></textarea>
                     </div>
                     <button onClick = {() => {this.exitEditMode();this.props.saveApplicationChanges()} } className="account-form-submit">Save changes</button> 
-                {/* </form> */}
-
             </div>
         )
     }
 
+    /**
+     * Renders a preview of the user's application from the entered information on application
+     */
     renderPreviewMode(){
         return (
             <div className="wrapper">
                     <h2 className="my-application">My Application:
                         <span>
                             <button onClick={this.enterEditMode}>
-                                <i class="far fa-edit"></i>
+                                <i className="far fa-edit"></i>
                             </button>
                         </span>
                     </h2>
@@ -96,8 +95,23 @@ class ApplicationDetails extends React.Component {
             </div>
         )
     }
+
+    /**
+    * Renders edit mode and preview mode for ApplicationDetails based on the editMode state
+    */
+    render() {
+        return (
+            <div className="wrapper">
+                {this.state.editMode ? this.renderEditMode() : this.renderPreviewMode()}
+            </div>
+        );
+    }
 }
 
+/**
+ * Returns a preview of the user's application
+ * @param {*} props - The props passed to ApplicationPreview
+ */
 export const ApplicationPreview = (props) =>{
     return (
         <div>
@@ -118,6 +132,9 @@ export const ApplicationPreview = (props) =>{
     )
 }
 
+/**
+ * Account displays the information about the user's application, jobs applied for and jobs saved
+ */
 export class Account extends React.Component {
     constructor(props){
         super(props);
@@ -130,24 +147,34 @@ export class Account extends React.Component {
         this.saveApplicationChanges = this.saveApplicationChanges.bind(this);
     }
 
-
+    /**
+     * Upon change, passes the changed application to a function that then updates the state of the user's application
+     * @param {Event} e - Event that is received on change in the user application
+     */
     setApplicationDetails(e) {
-       // let applicationState = this.state.application;
         let applicationState = this.props.application;
         applicationState[[e.target.id]] = e.target.value;
-        console.log("change");
 
         // set the userApplication state in App
         this.props.changeApplication(applicationState);
     }
 
+    /**
+     * Stores the current user application in firebase
+     */
     saveApplicationChanges() {
-        console.log("save changes");
         const dbRef = firebase.database().ref(`users/${this.props.user}/currentApplication`);
         // this can be props
         dbRef.set(this.props.application);
     }
 
+    /**
+     * Creates a date stamp when the apply button is clicked and adds it to the job object
+     * Creates a job key based on the event received
+     * Creates a job object using this job key to find the object in the search results
+     * Passes the job object and job key to the function applyForJob
+     * @param {Event} e - An event that is passed when the apply button is clicked
+     */
     applyForJob(e) {
         let currentDate = new Date();
         currentDate = currentDate.toString();
@@ -160,12 +187,10 @@ export class Account extends React.Component {
         this.props.applyForJob(jobkey, jobObject);
     }
 
-
-    componentDidMount(){
-        console.log("Account: " + this.props.loggedIn + " " + this.props.user);
-        const dbRef = firebase.database().ref(`users/${this.props.user}/currentApplication`);
-    }
       
+    /**
+     * Renders the account information if the user is signed in, else prompts the user to sign in
+     */
     render() {
         return (
             <div>
@@ -177,6 +202,10 @@ export class Account extends React.Component {
         )
     }
 
+    /**
+     * Renders account page views
+     * Allows the user to toggle between Application and Jobs sections
+     */
     renderAccount(){
         return (
             <div>
@@ -213,6 +242,10 @@ export class Account extends React.Component {
         )   
     }
 
+    /**
+     * Sets the state depending on the the view that the user has selected
+     * @param {*} detailsToDisplay - The view that is passed on click
+     */
     displayAccountDetails(detailsToDisplay){
         this.setState({
             accountDetailsToDisplay : detailsToDisplay
@@ -220,4 +253,3 @@ export class Account extends React.Component {
     }
 }
 
-// export default Account;

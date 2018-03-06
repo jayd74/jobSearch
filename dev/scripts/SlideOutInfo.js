@@ -1,6 +1,9 @@
 import React from 'react';
 import {ApplicationPreview} from './Account';
 
+/**
+ * SlideOutInfo displays information about a specfic job and allows users to apply for and save jobs
+ */
 class SlideOutInfo extends React.Component {
     constructor(props) {
         super(props);
@@ -14,6 +17,9 @@ class SlideOutInfo extends React.Component {
         this.renderApplyButton = this.renderApplyButton.bind(this);
     }
 
+    /**
+     * Once a user has applied for a job, toggles the application that was submitted at that time
+     */
     toggleApplicationDetails() {
         if (this.state.showApplicationDetails) {
             this.setState({
@@ -27,6 +33,12 @@ class SlideOutInfo extends React.Component {
         }
     }
 
+    /**
+     * Renders information from the API about a selected job
+     * Calls the method to render the apply button
+     * Renders a save or remove from saved button depending on the saved value of the prop
+     * Saved is a boolean that returns true if the job already exists in the saved job object
+     */
     renderJobDetails(){
         return (
             <div>
@@ -49,6 +61,10 @@ class SlideOutInfo extends React.Component {
             </div>);      
     }
 
+    /**
+     * Renders the apply button
+     * Hides the apply button if the props value hideApplyButton is true and shows the date applied and a button to see the application details
+     */
     renderApplyButton(){
         return (
             <div className="apply-button-container">
@@ -66,6 +82,9 @@ class SlideOutInfo extends React.Component {
         )
     }
 
+    /**
+     * Renders the job application for jobs applied to if the state showApplicationDetails is true, else renders the details about the job
+     */
     render() {
         return (
 
