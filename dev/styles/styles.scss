@@ -110,7 +110,7 @@ header {
     input {
         // padding: 5px;
         font-size: 20px;
-        width: 250px;
+        width: 200px;
         text-align: center;
         border: solid 3px $primary-color;
         border-radius: 5px;
@@ -207,8 +207,17 @@ header {
         float : right;   
     }
 
-    .search-for-jobs{
-        button{
+    // .search-for-jobs{
+    //     button{
+    //         display : block;
+    //         margin : 0 auto;
+    //     }
+    // }
+}
+
+@media (max-width: 1000px) {
+     .search-for-jobs{
+        button{ 
             display : block;
             margin : 0 auto;
         }
