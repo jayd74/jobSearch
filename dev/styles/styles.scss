@@ -52,15 +52,26 @@ header {
         float: left;
         margin: 35px 20px;
         list-style: none;
-    }
+        border: 3px solid #4b5466;
+        transition: 0.3s;
+        padding: 5px;
 
+    }
     .sign-in {
         margin: 35px 0;
         float: right;
         background: none;
         color: $tetiary-color;
-        border: none;
+        border: 3px solid #4b5466;
+        padding: 5px;
     }   
+    nav li:hover, 
+    .sign-in:hover {
+        background: $quaternary-color;
+        border: 3px solid $quaternary-color;
+        transition: 0.3s; 
+        padding: 5px;  
+    }
 }
 
 

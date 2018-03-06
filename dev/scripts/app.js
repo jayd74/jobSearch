@@ -86,6 +86,9 @@ class Home extends React.Component {
           currentSearchResults : _currentResults,
           resultsLoaded : true
         })
+        document.querySelector('.search-result').scrollIntoView({
+          behavior: 'smooth',
+        })
       })});   
     }
 
