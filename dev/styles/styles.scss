@@ -12,10 +12,10 @@ $tetiary-color: white;
 
 $quaternary-color: #846BA7;
 
-// * {
-//      border: solid 1px black;
-//      box-sizing: border-box;
-// }
+* {
+     border: solid 1px black;
+     box-sizing: border-box;
+}
 
 body {
     font-family: 'Mukta Malar', sans-serif; 
@@ -34,9 +34,9 @@ header {
     .logo { 
         background: url('/images/noun_1036986_cc-purple.svg') no-repeat center;
         text-align: center;
-        width: 31%;
+        // width: 31%;
         height: 75px;
-        margin: 10px;
+        margin: 10px 0;
         h2 {
             color: $tetiary-color;
             font-size: 45px;
@@ -47,6 +47,9 @@ header {
             }
         }
     }
+    // nav {
+    //     // margin-left: 20px;
+    // }
     
     // img{
        
@@ -75,11 +78,58 @@ header {
     
 }
 
+// @media (max-width: 760px) {
+//     header {
+//         height: 150px;
+//         .logo {
+//             float: left;
+//             // width: 100%;
+//             // padding-top: 35px;
+//         }
+//         nav {
+//             float: right;
+//             margin-top: 20px;
+//             width: 20%;
+//             li {
+//                clear: both;
+//                display: block;
+//                margin: 0;
+//                padding: 0;
+//            }
+
+//         }
+//         .sign-in-out {
+//             float: right;
+//             width: 100%;
+//             .sign-in {
+//                 width: 20%;
+//                 text-align: left;
+//                 margin: 5px 0;
+//             }
+//         }
+        
+//     }
+// }
+
+// @media (max-width: 600px) {
+//     .logo, nav, .sign-in-out {
+//         clear: both;
+//     }
+
+//     nav li {
+//         width: 100%;
+//     }
+    
+// }
+
+
+
 
 .wrapper {
     max-width: 1080px;
     margin: 0 auto;
     position: relative;
+    padding: 0 20px;
 }
 
 nav, 
@@ -162,4 +212,12 @@ nav,
 .retrieving-jobs {
     text-align: center;
     font-size: 18px;
+}
+
+@media (max-width: 700px) {
+    nav {
+        width: 100%;
+        float: none;
+
+    }
 }
