@@ -349,7 +349,7 @@ class App extends React.Component{
       <div>
         <header>
 
-          <div className="wrapper">
+          <div className="wrapper clearfix">
             <nav>
               <ul>
                 <li><Link to={`/`}>Home</Link></li>
