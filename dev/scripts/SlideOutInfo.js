@@ -49,10 +49,10 @@ class SlideOutInfo extends React.Component {
                 <p className="job-snippet" dangerouslySetInnerHTML={{ __html: this.props.data.snippet }}></p>
                 <a className="job-details" href={this.props.data.url} target="_blank">See Job Details</a>
                 <h4>{this.props.data.formattedRelativeTime}</h4>
+                
+                {this.props.loggedIn ? this.renderApplyButton() : null}
 
-                {this.renderApplyButton()}
-
-                {this.props.hideSaveButton
+                {this.props.hideSaveButton || !this.props.loggedIn
                     ? null
                     : <button onClick={() => { this.props.onSave(this.props.data.jobkey) }} className="save-button">
                         {!this.props.saved ? "Save" : "Remove From Saved Jobs"}

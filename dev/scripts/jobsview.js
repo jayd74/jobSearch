@@ -90,6 +90,7 @@ class JobsView extends React.Component{
                     hideSaveButton = {true} 
                     onClose={this.hideJobDetails} 
                     application={this.props.application} 
+                    loggedIn = {true}
                     />
             break;
 
@@ -102,6 +103,7 @@ class JobsView extends React.Component{
                     onClose={this.hideJobDetails} 
                     application={this.props.application} 
                     onApply = {this.applyForJob} 
+                    loggedIn = {true}
                     />
             break;
 
