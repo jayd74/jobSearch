@@ -161,6 +161,10 @@ header {
     font-size: 18px;
 }
 
+.google-span {
+    margin-right: 5px;
+}
+
 
 
 
@@ -221,5 +225,22 @@ header {
             margin : 0 auto;
         }
     }
+}
+
+@media (max-width: 475px) {
+    .header-col2{
+        width : 100%;
+        clear : both;
+    }
+
+    .header-col3{
+        width : 100%;
+        float : right;   
+    }
+
+    header .sign-in {
+        margin: 5px;
+    }
+
 }
 
