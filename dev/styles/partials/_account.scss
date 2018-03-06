@@ -10,11 +10,15 @@
     border: solid 3px $primary-color;
 }
 
-.account-button-toggled {
+.account-page-button:hover, .account-button-toggled, .account-form-submit {
     background: $quaternary-color;
     border: 3px solid $quaternary-color;
     color: white;
     transition: 0.3s;
+}
+.sign-in-to-view {
+    text-align: center;
+    margin: 25px;
 }
 
 .my-application{
@@ -28,7 +32,7 @@
     }
     button:hover,
     button:focus {
-        color:$primary-color;
+        color: $primary-color;
         transition: 0.3s
     }
 }
@@ -36,18 +40,19 @@
     background: white;
     padding: 50px;
     h3 {
-            font-size: 50px;
-            text-align: center;
+        font-size: 50px;
+        text-align: center;
     }
     h4 {
-            color: $primary-color;
-            font-size: 30px;
-            margin-top: 25px;
+        color: $primary-color;
+        font-size: 30px;
+        margin-top: 25px;
     }
     p {
         font-size: 25px;
     }
 }
+
 
 
    

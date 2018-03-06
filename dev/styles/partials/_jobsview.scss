@@ -13,10 +13,17 @@ $quaternary-color: #846BA7;
         margin: 20px;
         background: none;
         border: 3px solid #ebebeb;
+        padding: 0 10px;
+        transition: 0.3s;
+        border-radius: 5px;
     }
     button:hover,
     button:focus {
-        border-bottom: 3px solid $quaternary-color;
-        border-radius: 5px;
+    background: $quaternary-color;
+    border: 3px solid $quaternary-color;
+    color: white;
+    transition: 0.3s;
+    padding: 0 10px;
+    border-radius: 5px;
     }
 }

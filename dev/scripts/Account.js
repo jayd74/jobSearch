@@ -57,7 +57,7 @@ class ApplicationDetails extends React.Component {
                         <textarea name="" id="summary" onChange={this.props.setApplicationDetails} value={this.props.application.summary}></textarea>
                     </div>
                     <div className="account-form-input">
-                        <label htmlFor="experience">Experience</label>
+                        <label htmlFor="experience">Job Experience</label>
                         <textarea name="" id="experience" onChange={this.props.setApplicationDetails} value={this.props.application.experience}></textarea>
                     </div>
                     <div className="account-form-input">
@@ -65,7 +65,7 @@ class ApplicationDetails extends React.Component {
                         <textarea name="" id="education" onChange={this.props.setApplicationDetails} value={this.props.application.education}></textarea>
                     </div>
                     <div className="account-form-input">
-                        <label htmlFor="skills">Skills</label>
+                        <label htmlFor="skills">Skills & Qualifications</label>
                         <textarea name="" id="skills" onChange={this.props.setApplicationDetails} value={this.props.application.skills}></textarea>
                     </div>
                     <div className="account-form-input">
@@ -182,7 +182,7 @@ class Account extends React.Component {
             <div>
                 {this.props.loggedIn 
                     ? this.renderAccount() 
-                    : <h4>Sign in to view your account details</h4>
+                    : <h4 className="sign-in-to-view">Sign in to view your account details</h4>
                 }
             </div>
         )
