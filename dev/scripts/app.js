@@ -361,25 +361,29 @@ class App extends React.Component{
         <header>
 
           <div className="wrapper clearfix">
-            <nav>
-              <ul>
-                <li><Link to={`/`}>Home</Link></li>
-                <li><Link to={`/account/`}>Account</Link></li>
-              </ul>
-            </nav>
-            
-            <div className="logo">
-            <h2>Hacked<span>In</span></h2>
-              {/* <img src="/images/noun_1036986_cc.svg" /> */}
+            <div className="header-col1">
+              <nav className = "clearfix">
+                <ul className = "clearfix">
+                  <li><Link to={`/`}>Home</Link></li>
+                  <li><Link to={`/account/`}>Account</Link></li>
+                </ul>
+              </nav>            
             </div>
-            
-            <div className="sign-in-out">
-                <button 
-                  className="sign-in" 
-                  onClick = {this.state.loggedIn ? this.signOut : this.signIn}
-                >
-                {this.state.loggedIn ? "Sign out" : "Sign in"}
-              </button>
+            <div className="header-col2">
+              <div className="logo">
+              <h2>Hacked<span>In</span></h2>
+                {/* <img src="/images/noun_1036986_cc.svg" /> */}
+              </div>            
+            </div>
+            <div className="header-col3">
+              <div className="sign-in-out">
+                  <button 
+                    className="sign-in" 
+                    onClick = {this.state.loggedIn ? this.signOut : this.signIn}
+                  >
+                  {this.state.loggedIn ? "Sign out" : "Sign in"}
+                </button>
+              </div>            
             </div>
 
           </div>

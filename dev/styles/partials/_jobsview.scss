@@ -26,4 +26,13 @@ $quaternary-color: #846BA7;
     padding: 0 10px;
     border-radius: 5px;
     }
+
+    .jobs-view-button-toggled{
+        background-color : $quaternary-color;
+        border: 3px solid $quaternary-color;
+        color : white;
+        border-radius: 5px;
+        padding: 0 10px;
+    }
 }
+
