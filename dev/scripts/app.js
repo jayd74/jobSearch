@@ -209,7 +209,7 @@ class Home extends React.Component {
                 )
 
             }): <h6 className="retrieving-jobs">Retrieving Job Prospects...</h6>}    
-            {this.state.currentlySelectedJob 
+            {this.state.currentlySelectedJob
                 ? <SlideOutInfo 
                     hideApplyButton = {Boolean(this.props.jobsAppliedFor[this.state.currentlySelectedJob.jobkey])}
                     onApply = {this.applyForJob} 
@@ -218,6 +218,7 @@ class Home extends React.Component {
                     data={this.state.currentlySelectedJob}
                     application = {this.props.application}
                     saved = {Boolean(this.props.jobsSaved[this.state.currentlySelectedJob.jobkey])}
+                    loggedIn = {this.props.loggedIn}
                   /> 
                 : null}  
 
@@ -398,7 +399,9 @@ class App extends React.Component{
         this.setState({
           loggedIn: false,
           user: null,
-          jobsAppliedFor : {}
+          jobsAppliedFor : {},
+          jobsSaved : {},
+          userApplication : {}
         })
       }
     })

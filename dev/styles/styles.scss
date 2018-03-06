@@ -1,14 +1,14 @@
+$primary-color: #7685A1;
+$secondary-color: #CA6295;
+$tetiary-color: white;
+$quaternary-color: #846BA7;
+
 @import 'partials/normalize';
 @import 'partials/searchResult';
 @import 'partials/slideOutInfo';
 @import 'partials/accountForm';
 @import 'partials/account';
 @import 'partials/jobsview';
-
-$primary-color: #7685A1;
-$secondary-color: #CA6295;
-$tetiary-color: white;
-$quaternary-color: #846BA7;
 
 body {
     font-family: 'Mukta Malar', sans-serif; 
@@ -69,7 +69,7 @@ header {
         background: $quaternary-color;
         border: 3px solid $quaternary-color;
         transition: 0.3s; 
-        padding: 5px;  
+        // padding: 25px;  
     }
 }
 
