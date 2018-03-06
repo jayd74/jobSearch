@@ -149,22 +149,32 @@ class Home extends React.Component {
             </div>
 
             <div className="wrapper">
+            {Object.keys(this.state.currentSearchResults).length !== 0 ?
               <div className="change-page-controls">
                   <button className = "test" onClick = {this.changePage} id = "page-last">Last</button>
                   <button onClick = {this.changePage} id = "page-next">Next</button>
               </div>
+              // <p>results here</p>
+              :
+              null
+              // <p>no results</p>
+            }
             {this.state.resultsLoaded ? Object.values(this.state.currentSearchResults).map((job) => {
               // if(this.state.jobsAppliedFor[job.jobkey]){
                 return (
-                  <div key = {job.jobkey}>                   
+                 
+                                   
+                  <div key = {job.jobkey}>   
                     <SearchResult 
                       appliedFor = {Boolean(this.props.jobsAppliedFor[job.jobkey])} 
                       saved = {Boolean(this.props.jobsSaved[job.jobkey])}
                       onClick = {this.displayJobDetails} 
                       onSave = {this.saveJob} 
-                      data={job}/>
+                      data={job}
+                      changePage={this.changePage}/>
                   </div>
                 )
+                
               // }
             }): <h6 className="retrieving-jobs">Retrieving Job Prospects...</h6>}    
             {this.state.currentlySelectedJob 

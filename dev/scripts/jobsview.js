@@ -144,8 +144,8 @@ class JobsView extends React.Component{
         return (
             <div>
                 <div className="jobs-saved-applied-btn"> 
-                    <button onClick={this.showSaved}>saved</button>
-                    <button onClick={this.showApplied}>applied</button>
+                    <button onClick={this.showSaved}>Jobs Saved</button>
+                    <button onClick={this.showApplied}>Jobs Applied</button>
                     {/* <h2>Jobs Applied For:</h2> */}
                 </div>
                     
