@@ -60,7 +60,6 @@ class Home extends React.Component {
      * @param {String} k - The string key of the job to save.
      */
     saveJob(k){
-      console.log(k);
       let jobkey = k;
       let jobObject;
 
@@ -247,6 +246,7 @@ class App extends React.Component{
     super(props);
     this.state = {
       user : null,
+      userName: '',
       loggedIn : false,
       jobsAppliedFor : {},
       jobsSaved : {},
@@ -371,13 +371,13 @@ class App extends React.Component{
       if (user) {
         this.setState({
           loggedIn: true,
-          user: user.uid
+          user: user.uid,
+          userName: user.displayName
         })
 
         let dbRef = firebase.database().ref(`users/${this.state.user}`);
 
         dbRef.on('value', (data) => {
-          console.log(data.val());
           if(data.val().jobsAppliedFor){
             this.setState({
               jobsAppliedFor : data.val().jobsAppliedFor,
@@ -440,7 +440,7 @@ class App extends React.Component{
                     className="sign-in" 
                     onClick = {this.state.loggedIn ? this.signOut : this.signIn}
                   >
-                  {this.state.loggedIn ? "Sign out" : "Sign in"}
+                    {this.state.loggedIn ? <div><p>Sign Out {this.state.userName}</p></div> : <div><span className="google-span"><i className="fab fa-google"></i></span><span>Sign In</span></div>}
                 </button>
               </div>            
             </div>
