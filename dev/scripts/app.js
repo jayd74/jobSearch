@@ -20,6 +20,9 @@ var config = {
 };
 firebase.initializeApp(config);
 
+/**
+ * A Home Component. A Home component loads and displays search results to the page. 
+ */
 class Home extends React.Component {
     constructor(props){
       super(props);
@@ -42,13 +45,20 @@ class Home extends React.Component {
     }
 
     
-
+    /**
+     * Apply for a job, given a event from a button.
+     * @param {Event} e - The event that originates from the button pressed.
+     */
     applyForJob(e){
       let jobkey = e.target.id;
       let jobObject = this.state.currentSearchResults[e.target.id];
       this.props.applyForJob(jobkey,jobObject);
     }
 
+    /**
+     * For a given job string, save a job to the database.
+     * @param {String} k - The string key of the job to save.
+     */
     saveJob(k){
       console.log(k);
       let jobkey = k;
@@ -65,6 +75,9 @@ class Home extends React.Component {
       this.props.saveJob(jobkey,jobObject);
     }
 
+    /**
+     * Make an axios request to the Indeed API. Load and display search results. 
+     */
     searchForJobs(){
       this.setState({resultsLoaded : false, currentlySelectedJob : null},() => {axios.get("https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch",{
         params : {
@@ -80,7 +93,6 @@ class Home extends React.Component {
         }
 
       }).then((res) => {
-        console.log(res);
         let _currentResults = {};
         for(let i = 0; i < res.data.results.length; i++){
           _currentResults[res.data.results[i].jobkey] = res.data.results[i];
@@ -95,14 +107,22 @@ class Home extends React.Component {
       })});   
     }
 
+    /**
+     * Sets a new location for a job search.
+     * @param {Event} e - Event that originates setting of new location.
+     */
     setLocationToSearch(e){
       this.setState({
         locationToSearch : e.target.value
       })
     }
 
+    /**
+     * Changes the currently viewed page of search results for an originating event.
+     * @param {Event} e - Event that originates the page change.
+     */
     changePage(e){
-      console.log(e.target.className);
+
       let _currentPage = this.state.currentPage;
       switch(e.target.id){  
         case "page-last" :
@@ -121,6 +141,10 @@ class Home extends React.Component {
       this.searchForJobs();
     }
 
+    /**
+     * For a given originating event with an id, display the details of a job.
+     * @param {Event} e - Event with an id (jobkey).
+     */
     displayJobDetails(e){
       // in case that there is a job in jobsAppliedFor of e.target.id, then set currently selection job 
       // to that job applied for
@@ -137,12 +161,18 @@ class Home extends React.Component {
       }
     }
 
+    /**
+     * Hides the details modal for the currently selected job.
+     */
     hideJobDetails(){
       this.setState({
         currentlySelectedJob : null
       })
     }
 
+    /**
+     * The render method for Home.
+     */
     render() {
       return (
           <div>
@@ -181,7 +211,6 @@ class Home extends React.Component {
             }): <h6 className="retrieving-jobs">Retrieving Job Prospects...</h6>}    
             {this.state.currentlySelectedJob 
                 ? <SlideOutInfo 
-                    renderJobApplicationFile = {() => {this.props.renderJobApplicationFile(this.state.currentlySelectedJob)}}
                     hideApplyButton = {Boolean(this.props.jobsAppliedFor[this.state.currentlySelectedJob.jobkey])}
                     onApply = {this.applyForJob} 
                     onSave = {this.saveJob} 
@@ -209,7 +238,9 @@ class Home extends React.Component {
 
 
 
-
+/**
+ * The main App component.
+ */
 class App extends React.Component{
   constructor(props){
     super(props);
@@ -232,37 +263,42 @@ class App extends React.Component{
     this.applyForJob = this.applyForJob.bind(this);
     this.saveJob = this.saveJob.bind(this);
     this.changeApplication = this.changeApplication.bind(this);
-    this.renderJobApplicationFile = this.renderJobApplicationFile.bind(this);
   }
 
-  renderJobApplicationFile(jobObject) {
-    console.log(jobObject);
-  }
-
+  /**
+   * For a given jobkey and jobObject, apply for a job.
+   * @param {String} jobkey - key value at which to store jobObject
+   * @param {Object} jobObject - jobObject to store
+   */
   applyForJob(jobkey,jobObject){  
+    // get applied for jobs from state
     let appliedFor = this.state.jobsAppliedFor;
+    // add jobObject to applied for jobs at given jobkey
     appliedFor[jobkey] = jobObject;
+    // add application property to applied for job
     appliedFor[jobkey].jobApplication = this.state.userApplication;
 
+    // add date applied property to applied for job
     let currentDate = new Date();
     currentDate = currentDate.toString();
     currentDate = currentDate.substring(0, 15); 
     appliedFor[jobkey].dateApplied = currentDate;
 
     let saved = this.state.jobsSaved;
-
+    // if job applied for has already been saved, update fields for the saved job
     if(saved[jobkey]){
       saved[jobkey] = jobObject;
       saved[jobkey].jobApplication = this.state.userApplication;
       saved[jobkey].dateApplied = currentDate;
     }
-
     
+    // update state
     this.setState({
       jobsAppliedFor : appliedFor,
       jobsSaved : saved
     });
 
+    // update database
     if(this.state.loggedIn && this.state.user !== null){
       let dbRef = firebase.database().ref(`users/${this.state.user}/jobsAppliedFor`);
       dbRef.set(appliedFor);
@@ -271,6 +307,11 @@ class App extends React.Component{
     }
   }
 
+  /**
+   * For a given jobkey and jobObject, save a job.
+   * @param {String} jobkey - key value at which to store jobObject
+   * @param {Object} jobObject - jobObject to store
+   */
   saveJob(jobkey, jobObject){
     // get currently saved jobs from state
     let _jobsSaved = this.state.jobsSaved;
@@ -294,6 +335,9 @@ class App extends React.Component{
     }
   }
 
+  /**
+   * Signs the user in.
+   */
   signIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.setCustomParameters({
@@ -307,6 +351,9 @@ class App extends React.Component{
       })  
   }
 
+  /**
+   * Signs the user out.
+   */
   signOut() {
     firebase.auth().signOut().then(function (success) {
       console.log('Signed out!')
@@ -315,10 +362,9 @@ class App extends React.Component{
     });
   }
 
-  callMeBack(){
-    console.log("baby");
-  }
-
+  /**
+   * Sets up database value change callback. Loads database data as initial application state.
+   */
   componentDidMount(){
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -412,7 +458,6 @@ class App extends React.Component{
                 jobsAppliedFor = {this.state.jobsAppliedFor}
                 jobsSaved = {this.state.jobsSaved}
                 application = {this.state.userApplication}
-                renderJobApplicationFile = {this.renderJobApplicationFile}
               />);
             }
           } 
