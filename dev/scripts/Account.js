@@ -20,9 +20,6 @@ class ApplicationDetails extends React.Component {
     render() {
         return (
             <div className="wrapper">
-                {/* <div className="application-details-mode-selections">
-                    <button onClick={this.enterEditMode}><i class="far fa-edit"></i></button>
-                </div> */}
                 {this.state.editMode ? this.renderEditMode() : this.renderPreviewMode()}
             </div>
             );
@@ -125,15 +122,6 @@ export class Account extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            // application: {
-            //     name: '',
-            //     summary: '',
-            //     experience: '',
-            //     education: '',
-            //     skills: '',
-            //     interests: '',
-            //     coverLetter: ''
-            // },
             accountDetailsToDisplay : "applications"
         }
 
@@ -148,10 +136,6 @@ export class Account extends React.Component {
         let applicationState = this.props.application;
         applicationState[[e.target.id]] = e.target.value;
         console.log("change");
-
-        // this.setState({
-        //    application: applicationState
-        // })
 
         // set the userApplication state in App
         this.props.changeApplication(applicationState);

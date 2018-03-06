@@ -107,11 +107,9 @@ class JobsView extends React.Component{
         
         return (
             <div className="wrapper jobs-view">
-                <h2>Jobs Applied For:</h2>
                 {Object.values(this.props.jobsAppliedFor).map((item)=>{
                     return (
                         <div>
-                        {/* <h3>{item.company}</h3> */}
                         <SearchResult data={item} onClick={this.showJobDetails}/>
                     </div>
                     )
@@ -125,11 +123,9 @@ class JobsView extends React.Component{
     renderJobsSaved(){
         return (
             <div className="wrapper">
-                <h2>Jobs Saved:</h2>
                 {Object.values(this.props.jobsSaved).map((item)=>{
                     return (
                         <div>
-                        {/* <h3>{item.company}</h3> */}
                         <SearchResult data={item} onClick={this.showJobDetails}/>
                     </div>
                     )
@@ -146,7 +142,6 @@ class JobsView extends React.Component{
                 <div className="jobs-saved-applied-btn"> 
                     <button className = {this.state.jobApplicationView === "savedJobs" ? "jobs-view-button-toggled" : null} onClick={this.showSaved}>Jobs Saved</button>
                     <button className = {this.state.jobApplicationView !== "savedJobs" ? "jobs-view-button-toggled" : null} onClick={this.showApplied}>Jobs Applied</button>
-                    {/* <h2>Jobs Applied For:</h2> */}
                 </div>
                     
                     {this.state.jobApplicationView === "appliedJobs" ?
