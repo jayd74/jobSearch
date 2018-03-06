@@ -56,7 +56,8 @@ class SlideOutInfo extends React.Component {
                     ?
                     <div>
                         <p className="date-applied">Applied on {this.props.data.dateApplied}</p>
-                        <button onClick={this.toggleApplicationDetails}>{this.state.showApplicationDetails ? "Back to Job Posting" : <button className="show-application-details">Show My Application </button>}</button>
+                        <button onClick={this.toggleApplicationDetails}>{this.state.showApplicationDetails ? <button className="return-to-job-posting">Back to Job Posting</button> 
+                        : <button className="show-application-details">Show My Application </button>}</button>
                     </div>
                     : <button id={this.props.data.jobkey} onClick={this.props.onApply}
                         className="apply-button">Apply</button>
