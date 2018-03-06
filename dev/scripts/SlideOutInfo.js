@@ -34,7 +34,7 @@ class SlideOutInfo extends React.Component {
                 <h3>{this.props.data.company}</h3>
                 <h3>{this.props.data.formattedLocation}</h3>
 
-                <p dangerouslySetInnerHTML={{ __html: this.props.data.snippet }}></p>
+                <p className="job-snippet" dangerouslySetInnerHTML={{ __html: this.props.data.snippet }}></p>
                 <a className="job-details" href={this.props.data.url} target="_blank">See Job Details</a>
                 <h4>{this.props.data.formattedRelativeTime}</h4>
 
@@ -51,12 +51,12 @@ class SlideOutInfo extends React.Component {
 
     renderApplyButton(){
         return (
-            <div>
+            <div className="apply-button-container">
                 {this.props.hideApplyButton
                     ?
                     <div>
-                        <p>Applied on {this.props.data.dateApplied}</p>
-                        <button onClick={this.toggleApplicationDetails}>{this.state.showApplicationDetails ? "Back to Job Posting" : "Show My Application"}</button>
+                        <p className="date-applied">Applied on {this.props.data.dateApplied}</p>
+                        <button onClick={this.toggleApplicationDetails}>{this.state.showApplicationDetails ? "Back to Job Posting" : <button className="show-application-details">Show My Application </button>}</button>
                     </div>
                     : <button id={this.props.data.jobkey} onClick={this.props.onApply}
                         className="apply-button">Apply</button>
