@@ -55,7 +55,22 @@
     }
 }
 
-
+@media (max-width: 320px) {
+    .my-application {
+        font-size: 25px;
+    }
+    .application-section {
+        h3{
+            font-size: 35px;
+        }
+        h4 {
+            font-size: 21px;
+        }
+        p {
+            font-size: 18px;
+        }
+    }
+}
 
    
  

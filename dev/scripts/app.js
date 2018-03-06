@@ -151,8 +151,8 @@ class Home extends React.Component {
             <div className="wrapper">
             {Object.keys(this.state.currentSearchResults).length !== 0 ?
               <div className="change-page-controls">
-                  <button className = "test" onClick = {this.changePage} id = "page-last">Last</button>
-                  <button onClick = {this.changePage} id = "page-next">Next</button>
+                  <button className = "test" onClick = {this.changePage} id = "page-last">Previous Page</button>
+                  <button onClick = {this.changePage} id = "page-next">Next Page</button>
               </div>
               // <p>results here</p>
               :
@@ -189,8 +189,17 @@ class Home extends React.Component {
                     saved = {Boolean(this.props.jobsSaved[this.state.currentlySelectedJob.jobkey])}
                   /> 
                 : null}  
-          
+
+            {Object.keys(this.state.currentSearchResults).length !== 0 ?
+              <div className="change-page-controls">
+                <button className="test" onClick={this.changePage} id="page-last">Previous Page</button>
+                <button onClick={this.changePage} id="page-next">Next Page</button>
+              </div>
+              :
+              null
+            }
             </div> {/* end wrapper */}
+            
           </div> // end main div
       );
     }
