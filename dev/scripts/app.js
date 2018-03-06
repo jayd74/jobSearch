@@ -7,7 +7,7 @@ import {
     Route, Link } from 'react-router-dom';
 import SlideOutInfo from './SlideOutInfo';
 import SearchResult from './searchResult';
-import Account from './Account';
+import {Account} from './Account';
 import JobsView from './jobsview';
 
 var config = {
@@ -228,14 +228,25 @@ class App extends React.Component{
     currentDate = currentDate.substring(0, 15); 
     appliedFor[jobkey].dateApplied = currentDate;
 
+    let saved = this.state.jobsSaved;
+
+    if(saved[jobkey]){
+      saved[jobkey] = jobObject;
+      saved[jobkey].jobApplication = this.state.userApplication;
+      saved[jobkey].dateApplied = currentDate;
+    }
+
     
     this.setState({
-      jobsAppliedFor : appliedFor
+      jobsAppliedFor : appliedFor,
+      jobsSaved : saved
     });
 
     if(this.state.loggedIn && this.state.user !== null){
       let dbRef = firebase.database().ref(`users/${this.state.user}/jobsAppliedFor`);
       dbRef.set(appliedFor);
+      let dbRefB = firebase.database().ref(`users/${this.state.user}/jobsSaved`);
+      dbRefB.set(saved);
     }
   }
 

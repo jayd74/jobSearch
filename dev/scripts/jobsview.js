@@ -99,7 +99,7 @@ class JobsView extends React.Component{
         console.log(e.target.id);
         console.log(this.props.applyForJob);
         let jobkey = e.target.id;
-        let jobObject = this.props.jobsSaved[e.target.id];
+        let jobObject = this.props.jobsSaved[e.target.id];       
         this.props.applyForJob(jobkey,jobObject);
     }
 

@@ -94,29 +94,34 @@ class ApplicationDetails extends React.Component {
                         </span>
                     </h2>
                 <section className="application-section">
-
-
-                    <h3>{this.props.application.name}</h3>
-                    <h4>About Me</h4>
-                    <p>{this.props.application.summary}</p>
-                    <h4>Job Experience</h4>
-                    <p>{this.props.application.experience}</p>
-                    <h4>Education</h4>
-                    <p>{this.props.application.education}</p>
-                    <h4>Skills & Qualifications</h4>
-                    <p>{this.props.application.skills}</p>
-                    <h4>Interests</h4>
-                    <p>{this.props.application.interests}</p>
-                    <h4>Cover Letter</h4>
-                    <p>{this.props.application.coverLetter}</p>
+                    <ApplicationPreview application = {this.props.application}/>
                 </section>               
             </div>
         )
     }
-
 }
 
-class Account extends React.Component {
+export const ApplicationPreview = (props) =>{
+    return (
+        <div>
+            <h3>{props.application.name}</h3>
+            <h4>About Me</h4>
+            <p>{props.application.summary}</p>
+            <h4>Job Experience</h4>
+            <p>{props.application.experience}</p>
+            <h4>Education</h4>
+            <p>{props.application.education}</p>
+            <h4>Skills & Qualifications</h4>
+            <p>{props.application.skills}</p>
+            <h4>Interests</h4>
+            <p>{props.application.interests}</p>
+            <h4>Cover Letter</h4>
+            <p>{props.application.coverLetter}</p>           
+        </div>
+    )
+}
+
+export class Account extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -231,4 +236,4 @@ class Account extends React.Component {
     }
 }
 
-export default Account;
+// export default Account;
