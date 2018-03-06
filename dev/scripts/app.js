@@ -44,21 +44,24 @@ class Home extends React.Component {
     
 
     applyForJob(e){
-      // let currentDate = new Date();
-      // currentDate = currentDate.toString();
-      // currentDate = currentDate.substring(0, 15); 
-
       let jobkey = e.target.id;
       let jobObject = this.state.currentSearchResults[e.target.id];
-      // jobObject.dateApplied = currentDate;
-      
       this.props.applyForJob(jobkey,jobObject);
     }
 
     saveJob(k){
       console.log(k);
       let jobkey = k;
-      let jobObject = this.state.currentSearchResults[k];
+      let jobObject;
+
+      if(this.props.jobsAppliedFor[k]){
+        jobObject = this.props.jobsAppliedFor[k];
+      }
+
+      else if(this.state.currentSearchResults[k]){
+        jobObject = this.state.currentSearchResults[k];
+      }
+
       this.props.saveJob(jobkey,jobObject);
     }
 
@@ -154,13 +157,10 @@ class Home extends React.Component {
                   <button className = "test" onClick = {this.changePage} id = "page-last">Previous Page</button>
                   <button onClick = {this.changePage} id = "page-next">Next Page</button>
               </div>
-              // <p>results here</p>
               :
               null
-              // <p>no results</p>
             }
             {this.state.resultsLoaded ? Object.values(this.state.currentSearchResults).map((job) => {
-              // if(this.state.jobsAppliedFor[job.jobkey]){
                 return (
                  
                                    
@@ -174,8 +174,7 @@ class Home extends React.Component {
                       changePage={this.changePage}/>
                   </div>
                 )
-                
-              // }
+
             }): <h6 className="retrieving-jobs">Retrieving Job Prospects...</h6>}    
             {this.state.currentlySelectedJob 
                 ? <SlideOutInfo 
@@ -381,7 +380,6 @@ class App extends React.Component{
             <div className="header-col2">
               <div className="logo">
               <h2>Hacked<span>In</span></h2>
-                {/* <img src="/images/noun_1036986_cc.svg" /> */}
               </div>            
             </div>
             <div className="header-col3">
