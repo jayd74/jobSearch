@@ -18,6 +18,7 @@
     transform: translate(-50%, -50%);
     box-shadow : 0px 0px 25px grey;
     z-index: 1;
+
     h2, h3, h4, p {
         margin: 5px 20px;
     }
@@ -33,6 +34,9 @@
         float: right;
         padding: 10px;
         border: none;
+    }
+    h4 {
+        color: $primary-color;
     }
 }
 
@@ -82,7 +86,7 @@
     }
 
     .save-button, .show-application-details {
-        width: 200px;
+        min-width: 200px;
     }
 
     .apply-button:hover, .save-button:hover {
@@ -107,4 +111,14 @@
         }
         display : block;
         padding : 10px 20px
+    }
+
+    .return-to-job-posting {
+        color: black;
+        margin-left: 20px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        &:hover {
+            text-decoration: underline;
+        }
     }
