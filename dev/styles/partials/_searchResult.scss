@@ -1,10 +1,4 @@
-$primary-color: #7685A1;
-$secondary-color: #CA6295;
-$tetiary-color: #ECE6D0;
-$quaternary-color: #846BA7;
-
 .search-result {
-    //border: 1px solid black;
     width: 80%;
     cursor: pointer;
     padding: 30px;
@@ -47,12 +41,14 @@ $quaternary-color: #846BA7;
         margin : 5px;
         color: $secondary-color;
     }
+    .fa-arrow-right {
+        display: inline-block;
+        margin-left: 5px;
+    }
 }
-
 .search-result:hover{
     border : solid 10px $primary-color;
     box-shadow : 0px 2px 6px grey;
     transition: 0.3s;
-    // background: rgba($quaternary-color, 0.2);
 }
 
