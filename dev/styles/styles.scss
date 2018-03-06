@@ -8,14 +8,8 @@
 $primary-color: #7685A1;
 $secondary-color: #CA6295;
 $tetiary-color: white;
-// $tetiary-color: #ECE6D0;
 
 $quaternary-color: #846BA7;
-
-// * {
-//      border: solid 1px black;
-//      box-sizing: border-box;
-// }
 
 body {
     font-family: 'Mukta Malar', sans-serif; 
@@ -69,10 +63,12 @@ header {
     }   
 }
 
+
 .header-col1, .header-col2, .header-col3{
     width : calc(100%/3);
     float : left;
 }
+
 
 .wrapper {
     max-width: 1080px;
@@ -155,9 +151,7 @@ header {
     font-size: 18px;
 }
 
-@media(max-width : 450px){
 
-}
 
 
 
@@ -209,3 +203,4 @@ header {
         }
     }
 }
+

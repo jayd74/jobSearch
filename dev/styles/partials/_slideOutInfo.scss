@@ -45,10 +45,6 @@
 //     z-index: -1;
 // }
 
-.job-details{
-    display : block;
-    padding : 20px;
-}
 
 // .apply-button, .save-button {
 //     border: none;
@@ -60,8 +56,16 @@
 //     text-decoration: none;
 //     margin: 20px;
 // }
+.apply-button-container {
+    width: 200px;
+    margin-right: 10px;
+    display: inline-block;
+    p {
+        display: block;
+    }
+}
 
-    .apply-button, .save-button {
+     .save-button, .apply-button, .show-application-details {
         padding: 5px;
         background: $secondary-color;
         color: white;
@@ -72,8 +76,35 @@
         border: 3px solid $secondary-color;
         transition: 0.3s;
     }
+
+    .apply-button {
+        width: 100%;
+    }
+
+    .save-button, .show-application-details {
+        width: 200px;
+    }
+
     .apply-button:hover, .save-button:hover {
         background: $quaternary-color;
         border: 3px solid $quaternary-color;
         transition: 0.3s;
+    }
+
+    .job-snippet, .date-applied {
+        color: black;
+        font-size: 15px;
+        margin: 20px 0;
+        width: 100%;
+    }
+
+    .job-details  {
+        color: $primary-color;
+        text-decoration: none;
+        font-weight: bold;
+        &:hover {
+            text-decoration: underline;
+        }
+        display : block;
+        padding : 10px 20px
     }
